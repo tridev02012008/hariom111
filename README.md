@@ -2426,3 +2426,4909 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+/* =========================================================
+   FORMULA KIT - PART 4A
+   PREMIUM APP EXPERIENCE
+   Add this code AFTER your Part 3 code
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* =======================================================
+     PART 4A SETTINGS
+     ======================================================= */
+
+  const THEME_KEY = "formulaKitTheme";
+
+  /* =======================================================
+     PREMIUM APP BAR
+     ======================================================= */
+
+  const header = document.querySelector(".header");
+
+  if (header) {
+
+    const appTools = document.createElement("div");
+
+    appTools.className = "formula-app-tools";
+
+    appTools.innerHTML = `
+      <button
+        id="themeToggle"
+        class="app-tool-btn"
+        title="Toggle Dark Mode"
+        aria-label="Toggle Dark Mode">
+        🌙
+      </button>
+
+      <button
+        id="quickAddBtn"
+        class="app-tool-btn"
+        title="Quick Add Formula"
+        aria-label="Quick Add Formula">
+        ＋
+      </button>
+    `;
+
+    header.appendChild(appTools);
+  }
+
+  /* =======================================================
+     PREMIUM STYLE
+     ======================================================= */
+
+  const premiumStyle = document.createElement("style");
+
+  premiumStyle.textContent = `
+
+    /* -----------------------------------------------
+       APP TOOLS
+       ----------------------------------------------- */
+
+    .formula-app-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 10px;
+    }
+
+    .app-tool-btn {
+      width: 40px;
+      height: 40px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid #e1e5ee;
+      border-radius: 11px;
+
+      background: #ffffff;
+      color: #303747;
+
+      font-size: 17px;
+
+      cursor: pointer;
+
+      transition:
+        transform .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .app-tool-btn:hover {
+      transform: translateY(-2px);
+      background: #f4f5ff;
+      box-shadow: 0 6px 18px rgba(30, 40, 80, .08);
+    }
+
+    /* -----------------------------------------------
+       TOAST
+       ----------------------------------------------- */
+
+    .formula-toast {
+      position: fixed;
+
+      left: 50%;
+      bottom: 28px;
+
+      transform:
+        translate(-50%, 30px);
+
+      z-index: 99999;
+
+      padding: 13px 20px;
+
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+
+      background: #171c2b;
+      color: #ffffff;
+
+      font-size: 14px;
+      font-weight: 600;
+
+      box-shadow:
+        0 15px 40px rgba(0,0,0,.2);
+
+      opacity: 0;
+      pointer-events: none;
+
+      transition:
+        opacity .25s ease,
+        transform .25s ease;
+    }
+
+    .formula-toast.show {
+      opacity: 1;
+
+      transform:
+        translate(-50%, 0);
+    }
+
+    .formula-toast-icon {
+      font-size: 17px;
+    }
+
+    /* -----------------------------------------------
+       COPY BUTTON
+       ----------------------------------------------- */
+
+    .copy-formula-btn {
+      position: absolute;
+
+      right: 8px;
+      bottom: 8px;
+
+      padding: 6px 9px;
+
+      border: 1px solid #dce1ff;
+      border-radius: 7px;
+
+      background: rgba(255,255,255,.9);
+      color: #4f46e5;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: .2s ease;
+    }
+
+    .copy-formula-btn:hover {
+      background: #4f46e5;
+      color: #ffffff;
+    }
+
+    .formula-box {
+      position: relative;
+      padding-bottom: 45px;
+    }
+
+    /* -----------------------------------------------
+       DARK MODE
+       ----------------------------------------------- */
+
+    body.formula-dark {
+      background: #0e1320;
+      color: #edf0f7;
+    }
+
+    body.formula-dark .header {
+      background: rgba(18, 23, 36, .96);
+      border-color: #252c3d;
+    }
+
+    body.formula-dark .logo,
+    body.formula-dark .navbar a,
+    body.formula-dark .section-heading h2,
+    body.formula-dark .formula-card h3,
+    body.formula-dark .about-content h2 {
+      color: #edf0f7;
+    }
+
+    body.formula-dark .navbar a:hover {
+      color: #8b87ff;
+    }
+
+    body.formula-dark .app-tool-btn {
+      background: #1b2232;
+      border-color: #30394d;
+      color: #ffffff;
+    }
+
+    body.formula-dark .hero {
+      background:
+        radial-gradient(
+          circle at 15% 20%,
+          rgba(79,70,229,.18),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 85% 70%,
+          rgba(14,165,233,.10),
+          transparent 32%
+        ),
+        #0e1320;
+    }
+
+    body.formula-dark .hero-description,
+    body.formula-dark .formula-description,
+    body.formula-dark .about-content > p:last-child {
+      color: #aab2c3;
+    }
+
+    body.formula-dark .search-section,
+    body.formula-dark .categories-section,
+    body.formula-dark .about-section {
+      background: #121827;
+      border-color: #252c3d;
+    }
+
+    body.formula-dark .favorites-section {
+      background: #0e1320;
+    }
+
+    body.formula-dark .search-box input,
+    body.formula-dark #categoryFilter {
+      background: #1a2130;
+      border-color: #30394d;
+      color: #edf0f7;
+    }
+
+    body.formula-dark .formula-card,
+    body.formula-dark .empty-state,
+    body.formula-dark .favorite-empty,
+    body.formula-dark .category-card {
+      background: #171e2d;
+      border-color: #293347;
+      color: #edf0f7;
+    }
+
+    body.formula-dark .category-card:hover {
+      background: #202844;
+      border-color: #5059a5;
+    }
+
+    body.formula-dark .formula-box {
+      background: #202642;
+      border-color: #343d68;
+      color: #cdd1ff;
+    }
+
+    body.formula-dark .copy-formula-btn {
+      background: #242b40;
+      border-color: #454e79;
+      color: #a9a7ff;
+    }
+
+    body.formula-dark .edit-btn,
+    body.formula-dark .favorite-btn {
+      background: #1b2232;
+      border-color: #30394d;
+      color: #d8dce6;
+    }
+
+    body.formula-dark .delete-btn {
+      background: #1b2232;
+    }
+
+    body.formula-dark .modal-content {
+      background: #171e2d;
+      color: #edf0f7;
+    }
+
+    body.formula-dark #formulaForm input,
+    body.formula-dark #formulaForm select,
+    body.formula-dark #formulaForm textarea {
+      background: #1a2130;
+      border-color: #30394d;
+      color: #edf0f7;
+    }
+
+    body.formula-dark .modal-close {
+      background: #242b3a;
+      color: #ffffff;
+    }
+
+    body.formula-dark .footer {
+      background: #090d16;
+    }
+
+    /* -----------------------------------------------
+       MOBILE APP TOOLS
+       ----------------------------------------------- */
+
+    @media (max-width: 700px) {
+
+      .formula-app-tools {
+        margin-left: 4px;
+      }
+
+      .app-tool-btn {
+        width: 36px;
+        height: 36px;
+      }
+
+      .formula-toast {
+        width: calc(100% - 30px);
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+  `;
+
+  document.head.appendChild(premiumStyle);
+
+  /* =======================================================
+     TOAST SYSTEM
+     ======================================================= */
+
+  const toast = document.createElement("div");
+
+  toast.className = "formula-toast";
+
+  toast.innerHTML = `
+    <span class="formula-toast-icon">✓</span>
+    <span id="formulaToastMessage">
+      Done
+    </span>
+  `;
+
+  document.body.appendChild(toast);
+
+  let toastTimer = null;
+
+  function showFormulaToast(message, icon = "✓") {
+
+    const messageElement =
+      document.getElementById("formulaToastMessage");
+
+    const iconElement =
+      toast.querySelector(".formula-toast-icon");
+
+    if (messageElement) {
+      messageElement.textContent = message;
+    }
+
+    if (iconElement) {
+      iconElement.textContent = icon;
+    }
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2200);
+  }
+
+  /* =======================================================
+     DARK MODE
+     ======================================================= */
+
+  const themeToggle =
+    document.getElementById("themeToggle");
+
+  const savedTheme =
+    localStorage.getItem(THEME_KEY);
+
+  if (savedTheme === "dark") {
+
+    document.body.classList.add("formula-dark");
+
+    if (themeToggle) {
+      themeToggle.textContent = "☀️";
+      themeToggle.title = "Switch to Light Mode";
+    }
+
+  }
+
+  if (themeToggle) {
+
+    themeToggle.addEventListener("click", () => {
+
+      const isDark =
+        document.body.classList.toggle(
+          "formula-dark"
+        );
+
+      localStorage.setItem(
+        THEME_KEY,
+        isDark ? "dark" : "light"
+      );
+
+      themeToggle.textContent =
+        isDark ? "☀️" : "🌙";
+
+      themeToggle.title =
+        isDark
+          ? "Switch to Light Mode"
+          : "Switch to Dark Mode";
+
+      showFormulaToast(
+        isDark
+          ? "Dark Mode enabled"
+          : "Light Mode enabled",
+        isDark ? "🌙" : "☀️"
+      );
+
+    });
+
+  }
+
+  /* =======================================================
+     QUICK ADD
+     ======================================================= */
+
+  const quickAddBtn =
+    document.getElementById("quickAddBtn");
+
+  if (quickAddBtn) {
+
+    quickAddBtn.addEventListener("click", () => {
+
+      const addButton =
+        document.getElementById("addFormulaBtn");
+
+      if (addButton) {
+        addButton.click();
+      }
+
+      showFormulaToast(
+        "Ready to add a new formula",
+        "＋"
+      );
+
+    });
+
+  }
+
+  /* =======================================================
+     COPY FORMULA BUTTONS
+     ======================================================= */
+
+  function addCopyButtons() {
+
+    const formulaBoxes =
+      document.querySelectorAll(
+        ".formula-card .formula-box"
+      );
+
+    formulaBoxes.forEach(box => {
+
+      if (
+        box.querySelector(
+          ".copy-formula-btn"
+        )
+      ) {
+        return;
+      }
+
+      const copyButton =
+        document.createElement("button");
+
+      copyButton.className =
+        "copy-formula-btn";
+
+      copyButton.type = "button";
+
+      copyButton.textContent =
+        "📋 Copy";
+
+      copyButton.title =
+        "Copy formula";
+
+      copyButton.addEventListener(
+        "click",
+        async event => {
+
+          event.stopPropagation();
+
+          const formulaText =
+            box.childNodes[0]?.textContent
+              ?.trim();
+
+          if (!formulaText) {
+
+            showFormulaToast(
+              "Nothing to copy",
+              "!"
+            );
+
+            return;
+          }
+
+          try {
+
+            await navigator.clipboard.writeText(
+              formulaText
+            );
+
+            copyButton.textContent =
+              "✓ Copied";
+
+            showFormulaToast(
+              "Formula copied!",
+              "📋"
+            );
+
+            setTimeout(() => {
+
+              copyButton.textContent =
+                "📋 Copy";
+
+            }, 1400);
+
+          } catch (error) {
+
+            showFormulaToast(
+              "Copy failed",
+              "!"
+            );
+
+          }
+
+        }
+      );
+
+      box.appendChild(copyButton);
+
+    });
+  }
+
+  /* =======================================================
+     OBSERVE DYNAMIC FORMULA CARDS
+     ======================================================= */
+
+  const formulaContainer =
+    document.getElementById(
+      "formulaContainer"
+    );
+
+  const favoriteContainer =
+    document.getElementById(
+      "favoriteContainer"
+    );
+
+  if (formulaContainer) {
+
+    const observer =
+      new MutationObserver(() => {
+
+        addCopyButtons();
+
+      });
+
+    observer.observe(
+      formulaContainer,
+      {
+        childList: true,
+        subtree: true
+      }
+    );
+  }
+
+  if (favoriteContainer) {
+
+    const observer =
+      new MutationObserver(() => {
+
+        addCopyButtons();
+
+      });
+
+    observer.observe(
+      favoriteContainer,
+      {
+        childList: true,
+        subtree: true
+      }
+    );
+  }
+
+  /* =======================================================
+     INITIAL COPY BUTTONS
+     ======================================================= */
+
+  addCopyButtons();
+
+  /* =======================================================
+     KEYBOARD SHORTCUT
+     CTRL + K = QUICK ADD
+     ======================================================= */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        (event.ctrlKey || event.metaKey) &&
+        event.key.toLowerCase() === "k"
+      ) {
+
+        event.preventDefault();
+
+        if (quickAddBtn) {
+          quickAddBtn.click();
+        }
+
+      }
+
+    }
+  );
+
+  /* =======================================================
+     APP STARTUP MESSAGE
+     ======================================================= */
+
+  setTimeout(() => {
+
+    showFormulaToast(
+      "Formula Kit is ready ✨",
+      "🚀"
+    );
+
+  }, 700);
+
+});/* =========================================================
+   FORMULA KIT - PART 4B
+   SMART DASHBOARD + LIVE STATISTICS
+   Paste AFTER Part 4A
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* =======================================================
+     DASHBOARD STYLES
+     ======================================================= */
+
+  const dashboardStyle =
+    document.createElement("style");
+
+  dashboardStyle.textContent = `
+
+    /* ================================================
+       DASHBOARD
+       ================================================ */
+
+    .formula-dashboard {
+      margin: 35px 6% 0;
+
+      display: grid;
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 15px;
+    }
+
+    .dashboard-card {
+      position: relative;
+
+      padding: 22px;
+
+      background: #ffffff;
+      border: 1px solid #e5e8ef;
+      border-radius: 16px;
+
+      overflow: hidden;
+
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+    }
+
+    .dashboard-card:hover {
+      transform: translateY(-4px);
+
+      box-shadow:
+        0 12px 30px rgba(20,30,55,.08);
+    }
+
+    .dashboard-icon {
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 13px;
+
+      border-radius: 12px;
+
+      background: #f0f1ff;
+
+      font-size: 20px;
+    }
+
+    .dashboard-number {
+      display: block;
+
+      margin-bottom: 2px;
+
+      font-size: 29px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .dashboard-label {
+      color: #737b8c;
+
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .dashboard-card::after {
+      content: "";
+
+      position: absolute;
+
+      right: -22px;
+      bottom: -22px;
+
+      width: 75px;
+      height: 75px;
+
+      border-radius: 50%;
+
+      background: rgba(79,70,229,.06);
+    }
+
+    /* ================================================
+       RECENTLY ADDED
+       ================================================ */
+
+    .recent-section {
+      margin: 35px 6% 0;
+      padding: 25px;
+
+      background: #ffffff;
+
+      border: 1px solid #e5e8ef;
+      border-radius: 16px;
+    }
+
+    .recent-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 18px;
+    }
+
+    .recent-header h3 {
+      font-size: 20px;
+    }
+
+    .recent-header span {
+      color: #737b8c;
+      font-size: 12px;
+    }
+
+    .recent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .recent-item {
+      padding: 13px 15px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border: 1px solid #edf0f5;
+      border-radius: 11px;
+
+      background: #fafbfc;
+
+      transition: .2s ease;
+    }
+
+    .recent-item:hover {
+      transform: translateX(3px);
+      background: #f5f6ff;
+    }
+
+    .recent-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      min-width: 0;
+    }
+
+    .recent-symbol {
+      width: 35px;
+      height: 35px;
+
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 9px;
+
+      background: #eef0ff;
+
+      font-size: 17px;
+    }
+
+    .recent-info {
+      min-width: 0;
+    }
+
+    .recent-title {
+      display: block;
+
+      max-width: 400px;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .recent-category {
+      color: #7b8392;
+      font-size: 11px;
+    }
+
+    .recent-favorite {
+      font-size: 17px;
+    }
+
+    /* ================================================
+       CATEGORY STATISTICS
+       ================================================ */
+
+    .category-stats {
+      margin-top: 20px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(6, minmax(0, 1fr));
+
+      gap: 10px;
+    }
+
+    .category-stat {
+      padding: 13px;
+
+      text-align: center;
+
+      background: #fafbfc;
+
+      border: 1px solid #edf0f5;
+      border-radius: 11px;
+    }
+
+    .category-stat strong {
+      display: block;
+
+      margin-bottom: 3px;
+
+      font-size: 18px;
+    }
+
+    .category-stat span {
+      color: #737b8c;
+      font-size: 11px;
+    }
+
+    /* ================================================
+       DARK MODE
+       ================================================ */
+
+    body.formula-dark .dashboard-card,
+    body.formula-dark .recent-section {
+      background: #171e2d;
+      border-color: #293347;
+    }
+
+    body.formula-dark .dashboard-label,
+    body.formula-dark .recent-header span,
+    body.formula-dark .recent-category,
+    body.formula-dark .category-stat span {
+      color: #aab2c3;
+    }
+
+    body.formula-dark .dashboard-icon,
+    body.formula-dark .recent-symbol {
+      background: #242b46;
+    }
+
+    body.formula-dark .recent-item,
+    body.formula-dark .category-stat {
+      background: #1b2232;
+      border-color: #30394d;
+    }
+
+    body.formula-dark .recent-item:hover {
+      background: #222a43;
+    }
+
+    /* ================================================
+       MOBILE
+       ================================================ */
+
+    @media (max-width: 900px) {
+
+      .formula-dashboard {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .category-stats {
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .formula-dashboard {
+        margin-left: 5%;
+        margin-right: 5%;
+
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .dashboard-card {
+        padding: 17px;
+      }
+
+      .dashboard-number {
+        font-size: 25px;
+      }
+
+      .recent-section {
+        margin-left: 5%;
+        margin-right: 5%;
+        padding: 18px;
+      }
+
+      .category-stats {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+    }
+
+  `;
+
+  document.head.appendChild(dashboardStyle);
+
+
+  /* =======================================================
+     DASHBOARD HTML
+     ======================================================= */
+
+  const searchSection =
+    document.querySelector(".search-section");
+
+  if (!searchSection) {
+    return;
+  }
+
+  const dashboard =
+    document.createElement("section");
+
+  dashboard.className =
+    "formula-dashboard";
+
+  dashboard.innerHTML = `
+
+    <div class="dashboard-card">
+
+      <div class="dashboard-icon">
+        📚
+      </div>
+
+      <span
+        id="totalFormulaCount"
+        class="dashboard-number">
+        0
+      </span>
+
+      <span class="dashboard-label">
+        Total Formulas
+      </span>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+      <div class="dashboard-icon">
+        ⭐
+      </div>
+
+      <span
+        id="favoriteFormulaCount"
+        class="dashboard-number">
+        0
+      </span>
+
+      <span class="dashboard-label">
+        Favorites
+      </span>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+      <div class="dashboard-icon">
+        🗂️
+      </div>
+
+      <span
+        id="categoryFormulaCount"
+        class="dashboard-number">
+        0
+      </span>
+
+      <span class="dashboard-label">
+        Categories Used
+      </span>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+      <div class="dashboard-icon">
+        ✨
+      </div>
+
+      <span
+        id="recentFormulaCount"
+        class="dashboard-number">
+        0
+      </span>
+
+      <span class="dashboard-label">
+        Recent Formulas
+      </span>
+
+    </div>
+
+  `;
+
+  searchSection.insertAdjacentElement(
+    "afterend",
+    dashboard
+  );
+
+
+  /* =======================================================
+     RECENT FORMULAS SECTION
+     ======================================================= */
+
+  const recentSection =
+    document.createElement("section");
+
+  recentSection.className =
+    "recent-section";
+
+  recentSection.innerHTML = `
+
+    <div class="recent-header">
+
+      <h3>
+        🕘 Recently Added
+      </h3>
+
+      <span>
+        Your latest formulas
+      </span>
+
+    </div>
+
+    <div
+      id="recentFormulaList"
+      class="recent-list">
+    </div>
+
+    <div
+      id="categoryStats"
+      class="category-stats">
+    </div>
+
+  `;
+
+  dashboard.insertAdjacentElement(
+    "afterend",
+    recentSection
+  );
+
+
+  /* =======================================================
+     UPDATE DASHBOARD
+     ======================================================= */
+
+  function updateDashboard() {
+
+    /*
+      Part 3 stores formulas in localStorage.
+      We read the same storage so this upgrade
+      works with your existing Formula Kit.
+    */
+
+    let storedFormulas = [];
+
+    try {
+
+      const saved =
+        localStorage.getItem(
+          "formulaKitFormulas"
+        );
+
+      if (saved) {
+        storedFormulas =
+          JSON.parse(saved);
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Dashboard data error:",
+        error
+      );
+
+    }
+
+
+    if (!Array.isArray(storedFormulas)) {
+      storedFormulas = [];
+    }
+
+
+    /* ==============================================
+       BASIC COUNTS
+       ============================================== */
+
+    const total =
+      storedFormulas.length;
+
+    const favorites =
+      storedFormulas.filter(
+        item => item.favorite
+      ).length;
+
+    const categories =
+      new Set(
+        storedFormulas.map(
+          item => item.category
+        )
+      ).size;
+
+
+    /* ==============================================
+       UPDATE NUMBERS
+       ============================================== */
+
+    const totalElement =
+      document.getElementById(
+        "totalFormulaCount"
+      );
+
+    const favoriteElement =
+      document.getElementById(
+        "favoriteFormulaCount"
+      );
+
+    const categoryElement =
+      document.getElementById(
+        "categoryFormulaCount"
+      );
+
+    const recentElement =
+      document.getElementById(
+        "recentFormulaCount"
+      );
+
+
+    if (totalElement) {
+      animateNumber(
+        totalElement,
+        total
+      );
+    }
+
+    if (favoriteElement) {
+      animateNumber(
+        favoriteElement,
+        favorites
+      );
+    }
+
+    if (categoryElement) {
+      animateNumber(
+        categoryElement,
+        categories
+      );
+    }
+
+    if (recentElement) {
+      animateNumber(
+        recentElement,
+        Math.min(total, 5)
+      );
+    }
+
+
+    /* ==============================================
+       RECENT LIST
+       ============================================== */
+
+    const recentList =
+      document.getElementById(
+        "recentFormulaList"
+      );
+
+    if (recentList) {
+
+      const recent =
+        storedFormulas.slice(0, 5);
+
+      if (recent.length === 0) {
+
+        recentList.innerHTML = `
+          <div class="recent-item">
+            <div class="recent-item-left">
+              <div class="recent-symbol">
+                📭
+              </div>
+
+              <div class="recent-info">
+                <span class="recent-title">
+                  No formulas yet
+                </span>
+
+                <span class="recent-category">
+                  Add your first formula
+                </span>
+              </div>
+            </div>
+          </div>
+        `;
+
+      } else {
+
+        recentList.innerHTML =
+          recent.map(item => `
+
+            <div class="recent-item">
+
+              <div class="recent-item-left">
+
+                <div class="recent-symbol">
+                  ${getCategoryIcon(
+                    item.category
+                  )}
+                </div>
+
+                <div class="recent-info">
+
+                  <span class="recent-title">
+                    ${escapeDashboardHTML(
+                      item.title
+                    )}
+                  </span>
+
+                  <span class="recent-category">
+                    ${getCategoryName(
+                      item.category
+                    )}
+                  </span>
+
+                </div>
+
+              </div>
+
+              <div class="recent-favorite">
+                ${
+                  item.favorite
+                    ? "⭐"
+                    : ""
+                }
+              </div>
+
+            </div>
+
+          `).join("");
+
+      }
+    }
+
+
+    /* ==============================================
+       CATEGORY STATS
+       ============================================== */
+
+    const stats =
+      document.getElementById(
+        "categoryStats"
+      );
+
+    if (stats) {
+
+      const categoryList = [
+        ["math", "Mathematics"],
+        ["physics", "Physics"],
+        ["chemistry", "Chemistry"],
+        ["biology", "Biology"],
+        ["computer", "Computer"],
+        ["other", "Other"]
+      ];
+
+      stats.innerHTML =
+        categoryList.map(
+          ([key, name]) => {
+
+            const count =
+              storedFormulas.filter(
+                item =>
+                  item.category === key
+              ).length;
+
+            return `
+              <div class="category-stat">
+
+                <strong>
+                  ${count}
+                </strong>
+
+                <span>
+                  ${name}
+                </span>
+
+              </div>
+            `;
+
+          }
+        ).join("");
+    }
+
+  }
+
+
+  /* =======================================================
+     CATEGORY ICON
+     ======================================================= */
+
+  function getCategoryIcon(category) {
+
+    const icons = {
+
+      math: "📐",
+
+      physics: "⚡",
+
+      chemistry: "🧪",
+
+      biology: "🧬",
+
+      computer: "💻",
+
+      other: "📖"
+
+    };
+
+    return icons[category] || "📖";
+  }
+
+
+  /* =======================================================
+     CATEGORY NAME
+     ======================================================= */
+
+  function getCategoryName(category) {
+
+    const names = {
+
+      math: "Mathematics",
+
+      physics: "Physics",
+
+      chemistry: "Chemistry",
+
+      biology: "Biology",
+
+      computer: "Computer",
+
+      other: "Other"
+
+    };
+
+    return names[category] || "Other";
+  }
+
+
+  /* =======================================================
+     SAFE TEXT
+     ======================================================= */
+
+  function escapeDashboardHTML(value) {
+
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  /* =======================================================
+     NUMBER ANIMATION
+     ======================================================= */
+
+  function animateNumber(
+    element,
+    target
+  ) {
+
+    const start =
+      Number(element.textContent) || 0;
+
+    const duration = 450;
+
+    const startTime =
+      performance.now();
+
+
+    function update(currentTime) {
+
+      const progress =
+        Math.min(
+          (currentTime - startTime) /
+          duration,
+          1
+        );
+
+      const eased =
+        1 -
+        Math.pow(
+          1 - progress,
+          3
+        );
+
+      const value =
+        Math.round(
+          start +
+          (target - start) *
+          eased
+        );
+
+      element.textContent = value;
+
+      if (progress < 1) {
+
+        requestAnimationFrame(
+          update
+        );
+
+      } else {
+
+        element.textContent =
+          target;
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+
+  /* =======================================================
+     INITIAL UPDATE
+     ======================================================= */
+
+  updateDashboard();
+
+
+  /* =======================================================
+     AUTO REFRESH
+     ======================================================= */
+
+  setInterval(
+    updateDashboard,
+    1000
+  );
+
+
+  /* =======================================================
+     UPDATE WHEN STORAGE CHANGES
+     ======================================================= */
+
+  window.addEventListener(
+    "storage",
+    event => {
+
+      if (
+        event.key ===
+        "formulaKitFormulas"
+      ) {
+
+        updateDashboard();
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     UPDATE AFTER USER ACTIONS
+     ======================================================= */
+
+  document.addEventListener(
+    "click",
+    event => {
+
+      const actionButton =
+        event.target.closest(
+          "[data-action]"
+        );
+
+      if (actionButton) {
+
+        setTimeout(
+          updateDashboard,
+          100
+        );
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     UPDATE AFTER FORM SUBMIT
+     ======================================================= */
+
+  const formulaForm =
+    document.getElementById(
+      "formulaForm"
+    );
+
+  if (formulaForm) {
+
+    formulaForm.addEventListener(
+      "submit",
+      () => {
+
+        setTimeout(
+          updateDashboard,
+          150
+        );
+
+      }
+    );
+
+  }
+
+});/* =========================================================
+   FORMULA KIT - PART 4C
+   PRACTICE MODE + QUIZ + RANDOM FORMULA
+   Paste AFTER Part 4B
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* =======================================================
+     SETTINGS
+     ======================================================= */
+
+  const QUIZ_BEST_KEY =
+    "formulaKitBestScore";
+
+  let quizFormulas = [];
+
+  let currentQuestion = 0;
+
+  let quizScore = 0;
+
+  let quizStreak = 0;
+
+  let quizAnswered = false;
+
+  let quizTotalQuestions = 5;
+
+
+  /* =======================================================
+     CREATE PRACTICE BUTTON
+     ======================================================= */
+
+  const formulaSection =
+    document.querySelector(".formula-section");
+
+  if (!formulaSection) {
+    return;
+  }
+
+
+  const practiceButton =
+    document.createElement("button");
+
+  practiceButton.id =
+    "practiceModeBtn";
+
+  practiceButton.className =
+    "btn btn-primary";
+
+  practiceButton.innerHTML =
+    "🧠 Practice Mode";
+
+
+  const sectionHeading =
+    formulaSection.querySelector(
+      ".section-heading"
+    );
+
+
+  if (sectionHeading) {
+
+    sectionHeading.appendChild(
+      practiceButton
+    );
+
+  }
+
+
+  /* =======================================================
+     PREMIUM PRACTICE CSS
+     ======================================================= */
+
+  const practiceStyle =
+    document.createElement("style");
+
+
+  practiceStyle.textContent = `
+
+    /* ================================================
+       PRACTICE BUTTON
+       ================================================ */
+
+    #practiceModeBtn {
+      margin-left: 8px;
+    }
+
+
+    /* ================================================
+       PRACTICE MODAL
+       ================================================ */
+
+    .practice-modal {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 5000;
+
+      display: none;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 20px;
+
+      background:
+        rgba(10,15,30,.72);
+
+      backdrop-filter:
+        blur(8px);
+    }
+
+
+    .practice-modal.active {
+      display: flex;
+    }
+
+
+    .practice-box {
+      width: 100%;
+
+      max-width: 650px;
+
+      max-height: 90vh;
+
+      overflow-y: auto;
+
+      padding: 30px;
+
+      background: #ffffff;
+
+      border-radius: 22px;
+
+      box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.25);
+
+      animation:
+        practiceOpen
+        .3s ease;
+    }
+
+
+    @keyframes practiceOpen {
+
+      from {
+        opacity: 0;
+
+        transform:
+          translateY(20px)
+          scale(.97);
+      }
+
+      to {
+        opacity: 1;
+
+        transform:
+          translateY(0)
+          scale(1);
+      }
+
+    }
+
+
+    /* ================================================
+       PRACTICE HEADER
+       ================================================ */
+
+    .practice-header {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content:
+        space-between;
+
+      margin-bottom: 22px;
+    }
+
+
+    .practice-header h2 {
+      font-size: 25px;
+    }
+
+
+    .practice-close {
+
+      width: 38px;
+
+      height: 38px;
+
+      border: none;
+
+      border-radius: 50%;
+
+      background: #f1f3f7;
+
+      color: #555d6d;
+
+      cursor: pointer;
+
+      font-size: 17px;
+    }
+
+
+    /* ================================================
+       PROGRESS
+       ================================================ */
+
+    .practice-progress-info {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content:
+        space-between;
+
+      margin-bottom: 8px;
+
+      color: #71798a;
+
+      font-size: 12px;
+
+      font-weight: 700;
+    }
+
+
+    .practice-progress {
+
+      width: 100%;
+
+      height: 8px;
+
+      overflow: hidden;
+
+      margin-bottom: 25px;
+
+      background: #eceef5;
+
+      border-radius: 20px;
+    }
+
+
+    .practice-progress-bar {
+
+      width: 0%;
+
+      height: 100%;
+
+      background: #4f46e5;
+
+      border-radius: 20px;
+
+      transition:
+        width .35s ease;
+    }
+
+
+    /* ================================================
+       SCORE BAR
+       ================================================ */
+
+    .practice-score-bar {
+
+      display: flex;
+
+      justify-content:
+        space-between;
+
+      gap: 10px;
+
+      margin-bottom: 22px;
+    }
+
+
+    .practice-score-item {
+
+      flex: 1;
+
+      padding: 11px;
+
+      text-align: center;
+
+      background: #f7f8fc;
+
+      border-radius: 10px;
+    }
+
+
+    .practice-score-item strong {
+
+      display: block;
+
+      font-size: 20px;
+    }
+
+
+    .practice-score-item span {
+
+      color: #7b8393;
+
+      font-size: 10px;
+
+      font-weight: 700;
+    }
+
+
+    /* ================================================
+       QUESTION
+       ================================================ */
+
+    .practice-question {
+
+      margin-bottom: 18px;
+
+      color: #303747;
+
+      font-size: 16px;
+
+      font-weight: 700;
+    }
+
+
+    .practice-card {
+
+      padding: 25px;
+
+      text-align: center;
+
+      background: #f5f6ff;
+
+      border: 1px solid #e2e4ff;
+
+      border-radius: 16px;
+
+      margin-bottom: 20px;
+    }
+
+
+    .practice-formula-name {
+
+      margin-bottom: 17px;
+
+      color: #4f46e5;
+
+      font-size: 14px;
+
+      font-weight: 800;
+    }
+
+
+    .practice-hidden-formula {
+
+      min-height: 75px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 15px;
+
+      border-radius: 11px;
+
+      background: #ffffff;
+
+      font-size: 22px;
+
+      font-weight: 800;
+
+      letter-spacing: .5px;
+    }
+
+
+    .practice-hidden-formula.hidden-answer {
+
+      filter: blur(7px);
+
+      user-select: none;
+
+    }
+
+
+    /* ================================================
+       ANSWER INPUT
+       ================================================ */
+
+    .practice-answer {
+
+      width: 100%;
+
+      padding: 13px 14px;
+
+      border: 1px solid #dce1eb;
+
+      border-radius: 10px;
+
+      outline: none;
+
+      background: #ffffff;
+
+      color: #172033;
+
+      transition: .2s ease;
+    }
+
+
+    .practice-answer:focus {
+
+      border-color:
+        #4f46e5;
+
+      box-shadow:
+        0 0 0 4px
+        rgba(79,70,229,.08);
+    }
+
+
+    /* ================================================
+       PRACTICE ACTIONS
+       ================================================ */
+
+    .practice-actions {
+
+      display: flex;
+
+      gap: 10px;
+
+      margin-top: 14px;
+    }
+
+
+    .practice-actions button {
+
+      flex: 1;
+
+      padding: 11px;
+
+      border-radius: 9px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+
+    .practice-check {
+
+      border: none;
+
+      background: #4f46e5;
+
+      color: #ffffff;
+    }
+
+
+    .practice-skip {
+
+      border: 1px solid #dce1eb;
+
+      background: #ffffff;
+
+      color: #50596b;
+    }
+
+
+    /* ================================================
+       FEEDBACK
+       ================================================ */
+
+    .practice-feedback {
+
+      min-height: 25px;
+
+      margin-top: 15px;
+
+      text-align: center;
+
+      font-size: 14px;
+
+      font-weight: 800;
+    }
+
+
+    .practice-feedback.correct {
+
+      color: #16834d;
+    }
+
+
+    .practice-feedback.wrong {
+
+      color: #d93445;
+    }
+
+
+    /* ================================================
+       RESULT
+       ================================================ */
+
+    .practice-result {
+
+      display: none;
+
+      text-align: center;
+
+      padding: 15px 0;
+    }
+
+
+    .practice-result.active {
+
+      display: block;
+    }
+
+
+    .result-icon {
+
+      margin-bottom: 12px;
+
+      font-size: 55px;
+    }
+
+
+    .practice-result h2 {
+
+      margin-bottom: 8px;
+
+      font-size: 30px;
+    }
+
+
+    .result-score {
+
+      margin: 15px 0;
+
+      font-size: 44px;
+
+      font-weight: 900;
+
+      color: #4f46e5;
+    }
+
+
+    .result-message {
+
+      margin-bottom: 20px;
+
+      color: #727a8b;
+
+      font-size: 14px;
+    }
+
+
+    .result-actions {
+
+      display: flex;
+
+      gap: 10px;
+
+      justify-content: center;
+    }
+
+
+    /* ================================================
+       RANDOM FORMULA BUTTON
+       ================================================ */
+
+    .random-formula-btn {
+
+      margin-top: 10px;
+
+      width: 100%;
+
+      padding: 12px;
+
+      border: 1px dashed #cfd4ff;
+
+      border-radius: 10px;
+
+      background: #f7f7ff;
+
+      color: #4f46e5;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: .2s ease;
+    }
+
+
+    .random-formula-btn:hover {
+
+      background: #eef0ff;
+
+      transform: translateY(-1px);
+    }
+
+
+    /* ================================================
+       DARK MODE
+       ================================================ */
+
+    body.formula-dark .practice-box {
+
+      background: #171e2d;
+
+      color: #edf0f7;
+    }
+
+
+    body.formula-dark
+    .practice-close {
+
+      background: #252d3e;
+
+      color: #ffffff;
+    }
+
+
+    body.formula-dark
+    .practice-score-item {
+
+      background: #1d2535;
+    }
+
+
+    body.formula-dark
+    .practice-score-item span {
+
+      color: #aab2c3;
+    }
+
+
+    body.formula-dark
+    .practice-progress {
+
+      background: #30384b;
+    }
+
+
+    body.formula-dark
+    .practice-card {
+
+      background: #202642;
+
+      border-color: #343d68;
+    }
+
+
+    body.formula-dark
+    .practice-hidden-formula {
+
+      background: #171e2d;
+
+      color: #edf0f7;
+    }
+
+
+    body.formula-dark
+    .practice-answer {
+
+      background: #1b2232;
+
+      border-color: #30394d;
+
+      color: #ffffff;
+    }
+
+
+    body.formula-dark
+    .practice-skip {
+
+      background: #1b2232;
+
+      border-color: #30394d;
+
+      color: #d8dce6;
+    }
+
+
+    body.formula-dark
+    .random-formula-btn {
+
+      background: #202642;
+
+      border-color: #454e79;
+    }
+
+
+    /* ================================================
+       MOBILE
+       ================================================ */
+
+    @media (max-width: 600px) {
+
+      #practiceModeBtn {
+
+        margin-left: 0;
+
+        width: 100%;
+      }
+
+
+      .practice-box {
+
+        padding: 21px;
+
+        border-radius: 17px;
+      }
+
+
+      .practice-actions {
+
+        flex-direction: column;
+      }
+
+
+      .result-actions {
+
+        flex-direction: column;
+      }
+
+    }
+
+  `;
+
+
+  document.head.appendChild(
+    practiceStyle
+  );
+
+
+  /* =======================================================
+     CREATE PRACTICE MODAL
+     ======================================================= */
+
+  const practiceModal =
+    document.createElement("div");
+
+  practiceModal.className =
+    "practice-modal";
+
+  practiceModal.innerHTML = `
+
+    <div class="practice-box">
+
+      <div class="practice-header">
+
+        <h2>
+          🧠 Formula Practice
+        </h2>
+
+        <button
+          class="practice-close"
+          id="practiceClose">
+          ✕
+        </button>
+
+      </div>
+
+
+      <div id="practiceGame">
+
+        <div
+          class="practice-progress-info">
+
+          <span id="questionNumber">
+            Question 1 / 5
+          </span>
+
+          <span id="questionPercent">
+            0%
+          </span>
+
+        </div>
+
+
+        <div class="practice-progress">
+
+          <div
+            id="practiceProgressBar"
+            class="practice-progress-bar">
+          </div>
+
+        </div>
+
+
+        <div class="practice-score-bar">
+
+          <div
+            class="practice-score-item">
+
+            <strong id="practiceScore">
+              0
+            </strong>
+
+            <span>
+              SCORE
+            </span>
+
+          </div>
+
+
+          <div
+            class="practice-score-item">
+
+            <strong id="practiceStreak">
+              0
+            </strong>
+
+            <span>
+              STREAK
+            </span>
+
+          </div>
+
+
+          <div
+            class="practice-score-item">
+
+            <strong id="practiceBest">
+              0
+            </strong>
+
+            <span>
+              BEST
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="practice-question">
+
+          What is the correct formula?
+
+        </div>
+
+
+        <div class="practice-card">
+
+          <div
+            id="practiceFormulaName"
+            class="practice-formula-name">
+          </div>
+
+
+          <div
+            id="practiceFormula"
+            class="practice-hidden-formula
+                   hidden-answer">
+
+          </div>
+
+        </div>
+
+
+        <input
+          id="practiceAnswer"
+          class="practice-answer"
+          type="text"
+          placeholder="Type the formula here..."
+          autocomplete="off">
+
+
+        <div class="practice-actions">
+
+          <button
+            id="practiceCheck"
+            class="practice-check">
+
+            ✓ Check Answer
+
+          </button>
+
+
+          <button
+            id="practiceSkip"
+            class="practice-skip">
+
+            Skip →
+
+          </button>
+
+        </div>
+
+
+        <div
+          id="practiceFeedback"
+          class="practice-feedback">
+        </div>
+
+
+        <button
+          id="randomFormulaBtn"
+          class="random-formula-btn">
+
+          🎲 Show Random Formula
+
+        </button>
+
+      </div>
+
+
+      <div
+        id="practiceResult"
+        class="practice-result">
+
+        <div class="result-icon">
+          🏆
+        </div>
+
+        <h2>
+          Practice Complete!
+        </h2>
+
+        <div
+          id="resultScore"
+          class="result-score">
+          0 / 5
+        </div>
+
+        <p
+          id="resultMessage"
+          class="result-message">
+        </p>
+
+        <div class="result-actions">
+
+          <button
+            id="practiceAgain"
+            class="btn btn-primary">
+
+            🔄 Practice Again
+
+          </button>
+
+          <button
+            id="practiceDone"
+            class="btn btn-secondary">
+
+            Done
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document.body.appendChild(
+    practiceModal
+  );
+
+
+  /* =======================================================
+     ELEMENTS
+     ======================================================= */
+
+  const practiceClose =
+    document.getElementById(
+      "practiceClose"
+    );
+
+  const practiceGame =
+    document.getElementById(
+      "practiceGame"
+    );
+
+  const practiceResult =
+    document.getElementById(
+      "practiceResult"
+    );
+
+  const questionNumber =
+    document.getElementById(
+      "questionNumber"
+    );
+
+  const questionPercent =
+    document.getElementById(
+      "questionPercent"
+    );
+
+  const progressBar =
+    document.getElementById(
+      "practiceProgressBar"
+    );
+
+  const scoreElement =
+    document.getElementById(
+      "practiceScore"
+    );
+
+  const streakElement =
+    document.getElementById(
+      "practiceStreak"
+    );
+
+  const bestElement =
+    document.getElementById(
+      "practiceBest"
+    );
+
+  const formulaName =
+    document.getElementById(
+      "practiceFormulaName"
+    );
+
+  const formulaElement =
+    document.getElementById(
+      "practiceFormula"
+    );
+
+  const answerInput =
+    document.getElementById(
+      "practiceAnswer"
+    );
+
+  const feedback =
+    document.getElementById(
+      "practiceFeedback"
+    );
+
+  const checkButton =
+    document.getElementById(
+      "practiceCheck"
+    );
+
+  const skipButton =
+    document.getElementById(
+      "practiceSkip"
+    );
+
+  const randomButton =
+    document.getElementById(
+      "randomFormulaBtn"
+    );
+
+  const resultScore =
+    document.getElementById(
+      "resultScore"
+    );
+
+  const resultMessage =
+    document.getElementById(
+      "resultMessage"
+    );
+
+  const practiceAgain =
+    document.getElementById(
+      "practiceAgain"
+    );
+
+  const practiceDone =
+    document.getElementById(
+      "practiceDone"
+    );
+
+
+  /* =======================================================
+     GET FORMULAS
+     ======================================================= */
+
+  function getStoredFormulas() {
+
+    try {
+
+      const saved =
+        localStorage.getItem(
+          "formulaKitFormulas"
+        );
+
+      if (saved) {
+
+        const parsed =
+          JSON.parse(saved);
+
+        if (Array.isArray(parsed)) {
+          return parsed;
+        }
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Could not load practice formulas:",
+        error
+      );
+
+    }
+
+    return [];
+
+  }
+
+
+  /* =======================================================
+     NORMALIZE ANSWER
+     ======================================================= */
+
+  function normalizeAnswer(value) {
+
+    return String(value || "")
+      .toLowerCase()
+      .replace(/\s+/g, "")
+      .replace(/×/g, "*")
+      .replace(/−/g, "-")
+      .replace(/–/g, "-")
+      .replace(/·/g, "*")
+      .replace(/√/g, "sqrt")
+      .trim();
+
+  }
+
+
+  /* =======================================================
+     CHECK ANSWER
+     ======================================================= */
+
+  function isCorrectAnswer(
+    userAnswer,
+    correctAnswer
+  ) {
+
+    const user =
+      normalizeAnswer(userAnswer);
+
+    const correct =
+      normalizeAnswer(correctAnswer);
+
+    return user === correct;
+
+  }
+
+
+  /* =======================================================
+     SHUFFLE
+     ======================================================= */
+
+  function shuffle(array) {
+
+    const copy =
+      [...array];
+
+    for (
+      let i = copy.length - 1;
+      i > 0;
+      i--
+    ) {
+
+      const j =
+        Math.floor(
+          Math.random() *
+          (i + 1)
+        );
+
+      [
+        copy[i],
+        copy[j]
+      ] =
+      [
+        copy[j],
+        copy[i]
+      ];
+
+    }
+
+    return copy;
+
+  }
+
+
+  /* =======================================================
+     OPEN PRACTICE
+     ======================================================= */
+
+  function openPractice() {
+
+    const formulas =
+      getStoredFormulas();
+
+    if (formulas.length === 0) {
+
+      showPracticeToast(
+        "Add some formulas first!",
+        "📚"
+      );
+
+      return;
+    }
+
+
+    quizFormulas =
+      shuffle(formulas)
+        .slice(
+          0,
+          Math.min(
+            quizTotalQuestions,
+            formulas.length
+          )
+        );
+
+
+    quizTotalQuestions =
+      quizFormulas.length;
+
+    currentQuestion = 0;
+
+    quizScore = 0;
+
+    quizStreak = 0;
+
+    quizAnswered = false;
+
+
+    practiceGame.style.display =
+      "block";
+
+    practiceResult.classList.remove(
+      "active"
+    );
+
+    practiceModal.classList.add(
+      "active"
+    );
+
+    document.body.style.overflow =
+      "hidden";
+
+
+    updateBestScore();
+
+    showQuestion();
+
+  }
+
+
+  /* =======================================================
+     SHOW QUESTION
+     ======================================================= */
+
+  function showQuestion() {
+
+    if (
+      currentQuestion >=
+      quizFormulas.length
+    ) {
+
+      finishQuiz();
+
+      return;
+    }
+
+
+    quizAnswered = false;
+
+
+    const formula =
+      quizFormulas[
+        currentQuestion
+      ];
+
+
+    formulaName.textContent =
+      formula.title;
+
+
+    formulaElement.textContent =
+      formula.formula;
+
+
+    formulaElement.classList.add(
+      "hidden-answer"
+    );
+
+
+    answerInput.value = "";
+
+    answerInput.disabled =
+      false;
+
+
+    feedback.textContent =
+      "";
+
+    feedback.className =
+      "practice-feedback";
+
+
+    checkButton.disabled =
+      false;
+
+
+    questionNumber.textContent =
+      `Question ${
+        currentQuestion + 1
+      } / ${
+        quizTotalQuestions
+      }`;
+
+
+    const percent =
+      Math.round(
+        (
+          currentQuestion /
+          quizTotalQuestions
+        ) * 100
+      );
+
+
+    questionPercent.textContent =
+      `${percent}%`;
+
+
+    progressBar.style.width =
+      `${percent}%`;
+
+
+    scoreElement.textContent =
+      quizScore;
+
+
+    streakElement.textContent =
+      quizStreak;
+
+
+    setTimeout(() => {
+
+      answerInput.focus();
+
+    }, 100);
+
+  }
+
+
+  /* =======================================================
+     CHECK CURRENT ANSWER
+     ======================================================= */
+
+  function checkAnswer() {
+
+    if (quizAnswered) {
+      return;
+    }
+
+
+    const userAnswer =
+      answerInput.value.trim();
+
+
+    if (!userAnswer) {
+
+      feedback.textContent =
+        "Please enter an answer first.";
+
+      feedback.className =
+        "practice-feedback wrong";
+
+      return;
+    }
+
+
+    const current =
+      quizFormulas[
+        currentQuestion
+      ];
+
+
+    quizAnswered = true;
+
+
+    formulaElement.classList.remove(
+      "hidden-answer"
+    );
+
+
+    if (
+      isCorrectAnswer(
+        userAnswer,
+        current.formula
+      )
+    ) {
+
+      quizScore++;
+
+      quizStreak++;
+
+
+      feedback.textContent =
+        "🎉 Correct! Great job!";
+
+      feedback.className =
+        "practice-feedback correct";
+
+
+      showPracticeToast(
+        "Correct answer! 🎉",
+        "✓"
+      );
+
+    } else {
+
+      quizStreak = 0;
+
+
+      feedback.textContent =
+        `❌ Not quite. Correct answer: ${current.formula}`;
+
+      feedback.className =
+        "practice-feedback wrong";
+
+
+      showPracticeToast(
+        "Keep learning! 💪",
+        "!"
+      );
+
+    }
+
+
+    scoreElement.textContent =
+      quizScore;
+
+
+    streakElement.textContent =
+      quizStreak;
+
+
+    checkButton.disabled =
+      true;
+
+
+    setTimeout(() => {
+
+      currentQuestion++;
+
+      showQuestion();
+
+    }, 1500);
+
+  }
+
+
+  /* =======================================================
+     SKIP QUESTION
+     ======================================================= */
+
+  function skipQuestion() {
+
+    if (quizAnswered) {
+      return;
+    }
+
+
+    const current =
+      quizFormulas[
+        currentQuestion
+      ];
+
+
+    quizAnswered = true;
+
+    quizStreak = 0;
+
+
+    formulaElement.classList.remove(
+      "hidden-answer"
+    );
+
+
+    feedback.textContent =
+      `Answer: ${current.formula}`;
+
+    feedback.className =
+      "practice-feedback";
+
+
+    streakElement.textContent =
+      quizStreak;
+
+
+    setTimeout(() => {
+
+      currentQuestion++;
+
+      showQuestion();
+
+    }, 1300);
+
+  }
+
+
+  /* =======================================================
+     FINISH QUIZ
+     ======================================================= */
+
+  function finishQuiz() {
+
+    practiceGame.style.display =
+      "none";
+
+
+    practiceResult.classList.add(
+      "active"
+    );
+
+
+    progressBar.style.width =
+      "100%";
+
+
+    questionPercent.textContent =
+      "100%";
+
+
+    resultScore.textContent =
+      `${quizScore} / ${quizTotalQuestions}`;
+
+
+    let message;
+
+
+    const percentage =
+      (
+        quizScore /
+        quizTotalQuestions
+      ) * 100;
+
+
+    if (percentage === 100) {
+
+      message =
+        "🔥 Perfect score! You really know your formulas!";
+
+    } else if (percentage >= 80) {
+
+      message =
+        "🌟 Excellent! Your formula skills are strong.";
+
+    } else if (percentage >= 60) {
+
+      message =
+        "👍 Good work! A little more practice will make you even better.";
+
+    } else {
+
+      message =
+        "💪 Keep practicing! You will improve with every attempt.";
+
+    }
+
+
+    resultMessage.textContent =
+      message;
+
+
+    saveBestScore();
+
+    updateBestScore();
+
+
+    showPracticeToast(
+      "Practice complete! 🏆",
+      "🏆"
+    );
+
+  }
+
+
+  /* =======================================================
+     BEST SCORE
+     ======================================================= */
+
+  function saveBestScore() {
+
+    const oldBest =
+      Number(
+        localStorage.getItem(
+          QUIZ_BEST_KEY
+        )
+      ) || 0;
+
+
+    if (quizScore > oldBest) {
+
+      localStorage.setItem(
+        QUIZ_BEST_KEY,
+        quizScore
+      );
+
+    }
+
+  }
+
+
+  function updateBestScore() {
+
+    const best =
+      Number(
+        localStorage.getItem(
+          QUIZ_BEST_KEY
+        )
+      ) || 0;
+
+
+    bestElement.textContent =
+      best;
+
+  }
+
+
+  /* =======================================================
+     RANDOM FORMULA
+     ======================================================= */
+
+  randomButton.addEventListener(
+    "click",
+    () => {
+
+      const formulas =
+        getStoredFormulas();
+
+
+      if (formulas.length === 0) {
+        return;
+      }
+
+
+      const random =
+        formulas[
+          Math.floor(
+            Math.random() *
+            formulas.length
+          )
+        ];
+
+
+      formulaName.textContent =
+        random.title;
+
+
+      formulaElement.textContent =
+        random.formula;
+
+
+      formulaElement.classList.remove(
+        "hidden-answer"
+      );
+
+
+      showPracticeToast(
+        "Random formula revealed 🎲",
+        "🎲"
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     PRACTICE BUTTON
+     ======================================================= */
+
+  practiceButton.addEventListener(
+    "click",
+    openPractice
+  );
+
+
+  /* =======================================================
+     CHECK BUTTON
+     ======================================================= */
+
+  checkButton.addEventListener(
+    "click",
+    checkAnswer
+  );
+
+
+  /* =======================================================
+     SKIP BUTTON
+     ======================================================= */
+
+  skipButton.addEventListener(
+    "click",
+    skipQuestion
+  );
+
+
+  /* =======================================================
+     ENTER KEY
+     ======================================================= */
+
+  answerInput.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Enter"
+      ) {
+
+        event.preventDefault();
+
+        checkAnswer();
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     CLOSE PRACTICE
+     ======================================================= */
+
+  function closePractice() {
+
+    practiceModal.classList.remove(
+      "active"
+    );
+
+    document.body.style.overflow =
+      "";
+
+  }
+
+
+  practiceClose.addEventListener(
+    "click",
+    closePractice
+  );
+
+
+  practiceDone.addEventListener(
+    "click",
+    closePractice
+  );
+
+
+  practiceModal.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target ===
+        practiceModal
+      ) {
+
+        closePractice();
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     PRACTICE AGAIN
+     ======================================================= */
+
+  practiceAgain.addEventListener(
+    "click",
+    openPractice
+  );
+
+
+  /* =======================================================
+     ESC KEY
+     ======================================================= */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape" &&
+        practiceModal.classList.contains(
+          "active"
+        )
+      ) {
+
+        closePractice();
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     MINI TOAST
+     ======================================================= */
+
+  function showPracticeToast(
+    message,
+    icon
+  ) {
+
+    let toast =
+      document.getElementById(
+        "practiceMiniToast"
+      );
+
+
+    if (!toast) {
+
+      toast =
+        document.createElement(
+          "div"
+        );
+
+      toast.id =
+        "practiceMiniToast";
+
+      toast.style.cssText = `
+        position:fixed;
+        left:50%;
+        bottom:28px;
+        transform:translate(-50%,20px);
+        z-index:6000;
+        padding:12px 18px;
+        border-radius:11px;
+        background:#171c2b;
+        color:#ffffff;
+        font-size:13px;
+        font-weight:700;
+        opacity:0;
+        pointer-events:none;
+        transition:.25s ease;
+        box-shadow:0 12px 35px rgba(0,0,0,.2);
+      `;
+
+      document.body.appendChild(
+        toast
+      );
+
+    }
+
+
+    toast.textContent =
+      `${icon} ${message}`;
+
+
+    toast.style.opacity =
+      "1";
+
+
+    toast.style.transform =
+      "translate(-50%,0)";
+
+
+    clearTimeout(
+      toast._timer
+    );
+
+
+    toast._timer =
+      setTimeout(() => {
+
+        toast.style.opacity =
+          "0";
+
+        toast.style.transform =
+          "translate(-50%,20px)";
+
+      }, 2000);
+
+  }
+
+});/* =========================================================
+   FORMULA KIT - PART 4D
+   PREMIUM APP TOOLS + BACKUP + COMMAND MENU
+   Paste AFTER Part 4C
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* =======================================================
+     STYLE
+     ======================================================= */
+
+  const style = document.createElement("style");
+
+  style.textContent = `
+
+    /* =====================================================
+       COMMAND MENU
+       ===================================================== */
+
+    .fk-command-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+
+      padding: 12vh 20px 20px;
+
+      background: rgba(5, 9, 20, .65);
+      backdrop-filter: blur(9px);
+    }
+
+    .fk-command-overlay.active {
+      display: flex;
+    }
+
+    .fk-command-box {
+      width: 100%;
+      max-width: 580px;
+
+      overflow: hidden;
+
+      background: #ffffff;
+
+      border: 1px solid #e4e7ef;
+      border-radius: 18px;
+
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.22);
+
+      animation:
+        fkCommandOpen .22s ease;
+    }
+
+    @keyframes fkCommandOpen {
+      from {
+        opacity: 0;
+        transform: translateY(-15px) scale(.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .fk-command-search {
+      width: 100%;
+
+      padding: 18px 20px;
+
+      border: none;
+      border-bottom: 1px solid #eceef3;
+
+      outline: none;
+
+      background: transparent;
+
+      color: #1c2433;
+
+      font-size: 15px;
+    }
+
+    .fk-command-list {
+      max-height: 390px;
+      overflow-y: auto;
+
+      padding: 8px;
+    }
+
+    .fk-command-item {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      gap: 13px;
+
+      padding: 13px;
+
+      border: none;
+      border-radius: 11px;
+
+      background: transparent;
+
+      text-align: left;
+
+      color: #303747;
+
+      cursor: pointer;
+
+      transition: .15s ease;
+    }
+
+    .fk-command-item:hover,
+    .fk-command-item.selected {
+      background: #f1f2ff;
+      color: #4f46e5;
+    }
+
+    .fk-command-icon {
+      width: 35px;
+      height: 35px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 9px;
+
+      background: #f0f1ff;
+
+      font-size: 16px;
+    }
+
+    .fk-command-text strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .fk-command-text span {
+      color: #818898;
+      font-size: 11px;
+    }
+
+    .fk-command-footer {
+      padding: 11px 15px;
+
+      border-top: 1px solid #eceef3;
+
+      color: #8a91a0;
+
+      font-size: 11px;
+      text-align: right;
+    }
+
+    /* =====================================================
+       DATA TOOLS
+       ===================================================== */
+
+    .fk-data-tools {
+      margin: 25px 6% 0;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .fk-data-btn {
+      padding: 10px 14px;
+
+      border: 1px solid #e0e4ed;
+      border-radius: 10px;
+
+      background: #ffffff;
+      color: #3b4353;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: .2s ease;
+    }
+
+    .fk-data-btn:hover {
+      transform: translateY(-2px);
+
+      border-color: #c9ccff;
+
+      background: #f5f5ff;
+
+      color: #4f46e5;
+    }
+
+    .fk-data-btn.primary {
+      border-color: #4f46e5;
+      background: #4f46e5;
+      color: #ffffff;
+    }
+
+    /* =====================================================
+       SHORTCUT BADGE
+       ===================================================== */
+
+    .fk-shortcut-badge {
+      display: inline-flex;
+      align-items: center;
+
+      margin-left: auto;
+
+      padding: 3px 6px;
+
+      border: 1px solid #dfe2ea;
+      border-radius: 5px;
+
+      background: #f7f8fa;
+
+      color: #858c9b;
+
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    /* =====================================================
+       WELCOME EFFECT
+       ===================================================== */
+
+    .fk-welcome-glow {
+      animation:
+        fkWelcomeGlow 1.2s ease;
+    }
+
+    @keyframes fkWelcomeGlow {
+
+      0% {
+        box-shadow:
+          0 0 0 0
+          rgba(79,70,229,.35);
+      }
+
+      50% {
+        box-shadow:
+          0 0 0 10px
+          rgba(79,70,229,0);
+      }
+
+      100% {
+        box-shadow:
+          0 0 0 0
+          rgba(79,70,229,0);
+      }
+
+    }
+
+    /* =====================================================
+       DARK MODE
+       ===================================================== */
+
+    body.formula-dark .fk-command-box {
+      background: #171e2d;
+      border-color: #30394d;
+    }
+
+    body.formula-dark .fk-command-search {
+      color: #ffffff;
+      border-color: #30394d;
+    }
+
+    body.formula-dark .fk-command-item {
+      color: #e8ebf2;
+    }
+
+    body.formula-dark
+    .fk-command-item:hover,
+    body.formula-dark
+    .fk-command-item.selected {
+      background: #232b46;
+      color: #a9a7ff;
+    }
+
+    body.formula-dark .fk-command-icon {
+      background: #252d49;
+    }
+
+    body.formula-dark .fk-command-text span {
+      color: #9da6b8;
+    }
+
+    body.formula-dark .fk-command-footer {
+      border-color: #30394d;
+    }
+
+    body.formula-dark .fk-data-btn {
+      background: #1b2232;
+      border-color: #30394d;
+      color: #dfe3ed;
+    }
+
+    body.formula-dark .fk-shortcut-badge {
+      background: #242b3b;
+      border-color: #3a4357;
+      color: #aab2c3;
+    }
+
+    /* =====================================================
+       MOBILE
+       ===================================================== */
+
+    @media (max-width: 600px) {
+
+      .fk-data-tools {
+        margin-left: 5%;
+        margin-right: 5%;
+      }
+
+      .fk-data-btn {
+        flex: 1;
+        min-width: 135px;
+      }
+
+      .fk-command-overlay {
+        padding-top: 7vh;
+      }
+
+      .fk-command-box {
+        border-radius: 15px;
+      }
+
+    }
+
+  `;
+
+  document.head.appendChild(style);
+
+
+  /* =======================================================
+     DATA TOOLS
+     ======================================================= */
+
+  const formulaSection =
+    document.querySelector(".formula-section");
+
+  if (!formulaSection) {
+    return;
+  }
+
+  const dataTools =
+    document.createElement("div");
+
+  dataTools.className =
+    "fk-data-tools";
+
+  dataTools.innerHTML = `
+
+    <button
+      id="fkExportBtn"
+      class="fk-data-btn primary">
+      📥 Export Backup
+    </button>
+
+    <button
+      id="fkImportBtn"
+      class="fk-data-btn">
+      📤 Import Backup
+    </button>
+
+    <button
+      id="fkCommandBtn"
+      class="fk-data-btn">
+      ⚡ Command Menu
+    </button>
+
+  `;
+
+  formulaSection.appendChild(
+    dataTools
+  );
+
+
+  /* =======================================================
+     EXPORT
+     ======================================================= */
+
+  const exportButton =
+    document.getElementById(
+      "fkExportBtn"
+    );
+
+  exportButton.addEventListener(
+    "click",
+    () => {
+
+      let formulas = [];
+
+      try {
+
+        formulas =
+          JSON.parse(
+            localStorage.getItem(
+              "formulaKitFormulas"
+            ) || "[]"
+          );
+
+      } catch (error) {
+
+        formulas = [];
+
+      }
+
+
+      const backup = {
+
+        app:
+          "Formula Kit",
+
+        version:
+          "4.0",
+
+        exportedAt:
+          new Date().toISOString(),
+
+        formulas:
+          formulas
+
+      };
+
+
+      const blob =
+        new Blob(
+          [
+            JSON.stringify(
+              backup,
+              null,
+              2
+            )
+          ],
+          {
+            type:
+              "application/json"
+          }
+        );
+
+
+      const url =
+        URL.createObjectURL(
+          blob
+        );
+
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+      link.href = url;
+
+      link.download =
+        "formula-kit-backup.json";
+
+      document.body.appendChild(
+        link
+      );
+
+      link.click();
+
+      link.remove();
+
+      URL.revokeObjectURL(url);
+
+
+      showDataToast(
+        "Backup exported successfully!",
+        "📥"
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     IMPORT
+     ======================================================= */
+
+  const importButton =
+    document.getElementById(
+      "fkImportBtn"
+    );
+
+
+  const fileInput =
+    document.createElement(
+      "input"
+    );
+
+  fileInput.type =
+    "file";
+
+  fileInput.accept =
+    ".json,application/json";
+
+  fileInput.style.display =
+    "none";
+
+  document.body.appendChild(
+    fileInput
+  );
+
+
+  importButton.addEventListener(
+    "click",
+    () => {
+
+      fileInput.value = "";
+
+      fileInput.click();
+
+    }
+  );
+
+
+  fileInput.addEventListener(
+    "change",
+    event => {
+
+      const file =
+        event.target.files[0];
+
+      if (!file) {
+        return;
+      }
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function () {
+
+          try {
+
+            const backup =
+              JSON.parse(
+                reader.result
+              );
+
+
+            let importedFormulas;
+
+
+            if (
+              Array.isArray(
+                backup
+              )
+            ) {
+
+              importedFormulas =
+                backup;
+
+            } else {
+
+              importedFormulas =
+                backup.formulas;
+
+            }
+
+
+            if (
+              !Array.isArray(
+                importedFormulas
+              )
+            ) {
+
+              throw new Error(
+                "Invalid backup"
+              );
+
+            }
+
+
+            const existing =
+              JSON.parse(
+                localStorage.getItem(
+                  "formulaKitFormulas"
+                ) || "[]"
+              );
+
+
+            /*
+              Remove exact duplicates
+              using title + formula.
+            */
+
+            const combined =
+              [
+                ...existing,
+                ...importedFormulas
+              ];
+
+
+            const unique = [];
+
+
+            const seen =
+              new Set();
+
+
+            combined.forEach(
+              item => {
+
+                const key =
+                  `${item.title || ""}
+                   ::${item.formula || ""}`
+                    .toLowerCase()
+                    .replace(
+                      /\s+/g,
+                      ""
+                    );
+
+
+                if (
+                  !seen.has(key)
+                ) {
+
+                  seen.add(key);
+
+                  unique.push(
+                    item
+                  );
+
+                }
+
+              }
+            );
+
+
+            localStorage.setItem(
+              "formulaKitFormulas",
+              JSON.stringify(
+                unique
+              )
+            );
+
+
+            showDataToast(
+              `${unique.length} formulas restored!`,
+              "📤"
+            );
+
+
+            setTimeout(
+              () => {
+
+                location.reload();
+
+              },
+              900
+            );
+
+
+          } catch (error) {
+
+            showDataToast(
+              "Invalid backup file!",
+              "⚠️"
+            );
+
+          }
+
+        };
+
+
+      reader.readAsText(
+        file
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     COMMAND MENU
+     ======================================================= */
+
+  const commandOverlay =
+    document.createElement(
+      "div"
+    );
+
+  commandOverlay.className =
+    "fk-command-overlay";
+
+  commandOverlay.innerHTML = `
+
+    <div class="fk-command-box">
+
+      <input
+        id="fkCommandSearch"
+        class="fk-command-search"
+        type="text"
+        placeholder="Search an action..."
+        autocomplete="off">
+
+      <div
+        id="fkCommandList"
+        class="fk-command-list">
+
+      </div>
+
+      <div
+        class="fk-command-footer">
+
+        ESC to close • ↑ ↓ to navigate • Enter to select
+
+      </div>
+
+    </div>
+
+  `;
+
+  document.body.appendChild(
+    commandOverlay
+  );
+
+
+  const commandSearch =
+    document.getElementById(
+      "fkCommandSearch"
+    );
+
+  const commandList =
+    document.getElementById(
+      "fkCommandList"
+    );
+
+
+  /* =======================================================
+     COMMANDS
+     ======================================================= */
+
+  const commands = [
+
+    {
+      icon: "➕",
+      title: "Add Formula",
+      description: "Create a new formula",
+      shortcut: "A",
+      action: () => {
+
+        const button =
+          document.getElementById(
+            "addFormulaBtn"
+          );
+
+        if (button) {
+          button.click();
+        }
+
+      }
+    },
+
+    {
+      icon: "🧠",
+      title: "Practice Mode",
+      description: "Test your formula knowledge",
+      shortcut: "P",
+      action: () => {
+
+        const button =
+          document.getElementById(
+            "practiceModeBtn"
+          );
+
+        if (button) {
+          button.click();
+        }
+
+      }
+    },
+
+    {
+      icon: "🌙",
+      title: "Toggle Theme",
+      description: "Switch light / dark mode",
+      shortcut: "T",
+      action: () => {
+
+        const button =
+          document.getElementById(
+            "themeToggle"
+          );
+
+        if (button) {
+          button.click();
+        }
+
+      }
+    },
+
+    {
+      icon: "📥",
+      title: "Export Backup",
+      description: "Save all formulas",
+      shortcut: "E",
+      action: () => {
+
+        exportButton.click();
+
+      }
+    },
+
+    {
+      icon: "📤",
+      title: "Import Backup",
+      description: "Restore saved formulas",
+      shortcut: "I",
+      action: () => {
+
+        importButton.click();
+
+      }
+    },
+
+    {
+      icon: "🎲",
+      title: "Random Formula",
+      description: "Find a random formula",
+      shortcut: "R",
+      action: () => {
+
+        const randomButton =
+          document.getElementById(
+            "randomFormulaBtn"
+          );
+
+        if (randomButton) {
+          randomButton.click();
+        }
+
+      }
+    },
+
+    {
+      icon: "🔝",
+      title: "Go to Top",
+      description: "Scroll to the beginning",
+      shortcut: "Home",
+      action: () => {
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+      }
+    }
+
+  ];
+
+
+  /* =======================================================
+     RENDER COMMANDS
+     ======================================================= */
+
+  let selectedCommand = 0;
+
+
+  function renderCommands(
+    search = ""
+  ) {
+
+    const query =
+      search
+        .toLowerCase()
+        .trim();
+
+
+    const filtered =
+      commands.filter(
+        command =>
+          command.title
+            .toLowerCase()
+            .includes(query) ||
+          command.description
+            .toLowerCase()
+            .includes(query)
+      );
+
+
+    commandList.innerHTML =
+      filtered.map(
+        (command, index) => `
+
+          <button
+            class="fk-command-item ${
+              index === selectedCommand
+                ? "selected"
+                : ""
+            }"
+            data-command-index="${index}">
+
+            <span
+              class="fk-command-icon">
+              ${command.icon}
+            </span>
+
+            <span
+              class="fk-command-text">
+
+              <strong>
+                ${command.title}
+              </strong>
+
+              <span>
+                ${command.description}
+              </span>
+
+            </span>
+
+            <span
+              class="fk-shortcut-badge">
+
+              ${command.shortcut}
+
+            </span>
+
+          </button>
+
+        `
+      ).join("");
+
+
+    const buttons =
+      commandList.querySelectorAll(
+        ".fk-command-item"
+      );
+
+
+    buttons.forEach(
+      (button, index) => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const command =
+              filtered[index];
+
+            closeCommandMenu();
+
+            if (command) {
+              command.action();
+            }
+
+          }
+        );
+
+      }
+    );
+
+
+    selectedCommand = Math.min(
+      selectedCommand,
+      Math.max(
+        filtered.length - 1,
+        0
+      )
+    );
+
+  }
+
+
+  /* =======================================================
+     OPEN COMMAND MENU
+     ======================================================= */
+
+  function openCommandMenu() {
+
+    selectedCommand = 0;
+
+    commandOverlay.classList.add(
+      "active"
+    );
+
+    commandSearch.value = "";
+
+    renderCommands();
+
+    setTimeout(
+      () => {
+        commandSearch.focus();
+      },
+      50
+    );
+
+    document.body.style.overflow =
+      "hidden";
+
+  }
+
+
+  /* =======================================================
+     CLOSE COMMAND MENU
+     ======================================================= */
+
+  function closeCommandMenu() {
+
+    commandOverlay.classList.remove(
+      "active"
+    );
+
+    document.body.style.overflow =
+      "";
+
+  }
+
+
+  document
+    .getElementById(
+      "fkCommandBtn"
+    )
+    .addEventListener(
+      "click",
+      openCommandMenu
+    );
+
+
+  /* =======================================================
+     COMMAND SEARCH
+     ======================================================= */
+
+  commandSearch.addEventListener(
+    "input",
+    () => {
+
+      selectedCommand = 0;
+
+      renderCommands(
+        commandSearch.value
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     COMMAND KEYBOARD CONTROL
+     ======================================================= */
+
+  commandSearch.addEventListener(
+    "keydown",
+    event => {
+
+      const items =
+        commandList.querySelectorAll(
+          ".fk-command-item"
+        );
+
+
+      if (
+        event.key === "ArrowDown"
+      ) {
+
+        event.preventDefault();
+
+        selectedCommand =
+          Math.min(
+            selectedCommand + 1,
+            items.length - 1
+          );
+
+        renderCommands(
+          commandSearch.value
+        );
+
+      }
+
+
+      if (
+        event.key === "ArrowUp"
+      ) {
+
+        event.preventDefault();
+
+        selectedCommand =
+          Math.max(
+            selectedCommand - 1,
+            0
+          );
+
+        renderCommands(
+          commandSearch.value
+        );
+
+      }
+
+
+      if (
+        event.key === "Enter"
+      ) {
+
+        event.preventDefault();
+
+        if (
+          items[selectedCommand]
+        ) {
+
+          items[
+            selectedCommand
+          ].click();
+
+        }
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     CLOSE WITH BACKDROP
+     ======================================================= */
+
+  commandOverlay.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target ===
+        commandOverlay
+      ) {
+
+        closeCommandMenu();
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     GLOBAL SHORTCUTS
+     ======================================================= */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      const activeTag =
+        document.activeElement?.tagName;
+
+
+      /*
+        Do not hijack typing
+        inside inputs.
+      */
+
+      const typing =
+        activeTag === "INPUT" ||
+        activeTag === "TEXTAREA" ||
+        activeTag === "SELECT";
+
+
+      if (
+        event.key === "Escape"
+      ) {
+
+        if (
+          commandOverlay.classList.contains(
+            "active"
+          )
+        ) {
+
+          closeCommandMenu();
+
+        }
+
+        return;
+
+      }
+
+
+      /*
+        Ctrl + /
+        = Command Menu
+      */
+
+      if (
+        (event.ctrlKey || event.metaKey) &&
+        event.key === "/"
+      ) {
+
+        event.preventDefault();
+
+        openCommandMenu();
+
+        return;
+
+      }
+
+
+      if (typing) {
+        return;
+      }
+
+
+      /*
+        A = Add
+        P = Practice
+        T = Theme
+        R = Random
+      */
+
+      if (
+        event.key.toLowerCase() === "a"
+      ) {
+
+        const button =
+          document.getElementById(
+            "addFormulaBtn"
+          );
+
+        if (button) {
+          button.click();
+        }
+
+      }
+
+
+      if (
+        event.key.toLowerCase() === "p"
+      ) {
+
+        const button =
+          document.getElementById(
+            "practiceModeBtn"
+          );
+
+        if (button) {
+          button.click();
+        }
+
+      }
+
+
+      if (
+        event.key.toLowerCase() === "t"
+      ) {
+
+        const button =
+          document.getElementById(
+            "themeToggle"
+          );
+
+        if (button) {
+          button.click();
+        }
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     TOAST
+     ======================================================= */
+
+  function showDataToast(
+    message,
+    icon = "✓"
+  ) {
+
+    let toast =
+      document.getElementById(
+        "fkDataToast"
+      );
+
+
+    if (!toast) {
+
+      toast =
+        document.createElement(
+          "div"
+        );
+
+      toast.id =
+        "fkDataToast";
+
+      toast.style.cssText = `
+        position:fixed;
+        left:50%;
+        bottom:28px;
+        z-index:99999;
+
+        transform:
+          translate(-50%,20px);
+
+        padding:13px 20px;
+
+        border-radius:12px;
+
+        background:#171c2b;
+        color:#ffffff;
+
+        font-size:13px;
+        font-weight:700;
+
+        opacity:0;
+        pointer-events:none;
+
+        transition:.25s ease;
+
+        box-shadow:
+          0 15px 40px
+          rgba(0,0,0,.22);
+      `;
+
+      document.body.appendChild(
+        toast
+      );
+
+    }
+
+
+    toast.textContent =
+      `${icon} ${message}`;
+
+
+    toast.style.opacity =
+      "1";
+
+    toast.style.transform =
+      "translate(-50%,0)";
+
+
+    clearTimeout(
+      toast._timer
+    );
+
+
+    toast._timer =
+      setTimeout(
+        () => {
+
+          toast.style.opacity =
+            "0";
+
+          toast.style.transform =
+            "translate(-50%,20px)";
+
+        },
+        2200
+      );
+
+  }
+
+
+  /* =======================================================
+     APP READY EFFECT
+     ======================================================= */
+
+  setTimeout(
+    () => {
+
+      const cards =
+        document.querySelectorAll(
+          ".formula-card"
+        );
+
+
+      cards.forEach(
+        (card, index) => {
+
+          setTimeout(
+            () => {
+
+              card.classList.add(
+                "fk-welcome-glow"
+              );
+
+              setTimeout(
+                () => {
+
+                  card.classList.remove(
+                    "fk-welcome-glow"
+                  );
+
+                },
+                1200
+              );
+
+            },
+            index * 80
+          );
+
+        }
+      );
+
+    },
+    500
+  );
+
+
+  /* =======================================================
+     FINAL MESSAGE
+     ======================================================= */
+
+  setTimeout(
+    () => {
+
+      showDataToast(
+        "Premium Formula Kit ready ✨",
+        "🚀"
+      );
+
+    },
+    1000
+  );
+
+});

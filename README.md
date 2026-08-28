@@ -644,3 +644,1785 @@
 
 </body>
 </html>
+/* =========================================================
+   FORMULA KIT - PART 2
+   style.css
+   ========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f7f9fc;
+  color: #172033;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+section {
+  scroll-margin-top: 90px;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.btn-primary {
+  background: #4f46e5;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #4338ca;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: #e9edff;
+  color: #4338ca;
+}
+
+.btn-secondary:hover {
+  background: #dfe4ff;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #d6dbea;
+  color: #172033;
+}
+
+.btn-outline:hover {
+  background: #f1f3f8;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  min-height: 72px;
+  padding: 0 6%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid #e8ebf2;
+  backdrop-filter: blur(12px);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.logo-icon {
+  font-size: 25px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navbar a {
+  color: #596174;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.navbar a:hover {
+  color: #4f46e5;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+  min-height: 570px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 90px 6%;
+
+  background:
+    radial-gradient(circle at 15% 20%, #e7eaff 0, transparent 32%),
+    radial-gradient(circle at 85% 70%, #eaf7ff 0, transparent 32%),
+    #ffffff;
+}
+
+.hero-content {
+  max-width: 850px;
+  text-align: center;
+}
+
+.hero-small-title {
+  margin-bottom: 18px;
+
+  color: #4f46e5;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 6vw, 70px);
+  line-height: 1.08;
+  letter-spacing: -2px;
+  margin-bottom: 25px;
+}
+
+.hero h1 span {
+  color: #4f46e5;
+}
+
+.hero-description {
+  max-width: 650px;
+  margin: auto;
+
+  color: #667085;
+  font-size: 18px;
+}
+
+.hero-buttons {
+  margin-top: 34px;
+
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.search-section {
+  padding: 30px 6%;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  background: #ffffff;
+  border-bottom: 1px solid #e8ebf2;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  max-width: 850px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  font-size: 17px;
+}
+
+.search-box input {
+  width: 100%;
+  height: 48px;
+
+  padding: 0 45px;
+
+  border: 1px solid #dce1eb;
+  border-radius: 10px;
+
+  outline: none;
+  background: #f9fafc;
+  color: #172033;
+
+  transition: 0.2s ease;
+}
+
+.search-box input:focus {
+  border-color: #4f46e5;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
+}
+
+.clear-search {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+  color: #8a92a3;
+
+  display: none;
+}
+
+#categoryFilter {
+  width: 190px;
+  height: 48px;
+
+  padding: 0 14px;
+
+  border: 1px solid #dce1eb;
+  border-radius: 10px;
+
+  background: #fff;
+  color: #343b4d;
+  outline: none;
+}
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.formula-section,
+.categories-section,
+.favorites-section,
+.about-section {
+  padding: 75px 6%;
+}
+
+.section-heading {
+  margin-bottom: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-label {
+  margin-bottom: 6px;
+
+  color: #4f46e5;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.section-heading h2 {
+  font-size: 34px;
+  line-height: 1.2;
+}
+
+/* =========================================================
+   FORMULA GRID
+   ========================================================= */
+
+.formula-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+/* =========================================================
+   FORMULA CARD
+   ========================================================= */
+
+.formula-card {
+  padding: 23px;
+
+  background: #ffffff;
+  border: 1px solid #e7eaf0;
+  border-radius: 16px;
+
+  box-shadow: 0 8px 25px rgba(20, 30, 55, 0.05);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.formula-card:hover {
+  transform: translateY(-5px);
+  border-color: #d7daf4;
+  box-shadow: 0 14px 35px rgba(20, 30, 55, 0.09);
+}
+
+.formula-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+}
+
+.category-badge {
+  padding: 6px 10px;
+
+  border-radius: 20px;
+
+  background: #eef0ff;
+  color: #4f46e5;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.favorite-btn {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #e3e6ed;
+  border-radius: 50%;
+
+  background: #fff;
+  color: #7c8495;
+
+  font-size: 21px;
+
+  transition: 0.2s ease;
+}
+
+.favorite-btn:hover {
+  color: #4f46e5;
+  border-color: #cdd1f5;
+}
+
+.favorite-btn.active {
+  color: #4f46e5;
+  background: #eef0ff;
+  border-color: #d5d8ff;
+}
+
+.formula-card h3 {
+  margin-bottom: 15px;
+
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.formula-box {
+  min-height: 70px;
+  margin-bottom: 17px;
+  padding: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f5f6ff;
+  border: 1px solid #e5e7ff;
+  border-radius: 10px;
+
+  color: #30377a;
+
+  font-size: 19px;
+  font-weight: 700;
+  text-align: center;
+
+  overflow-x: auto;
+}
+
+.formula-description {
+  min-height: 50px;
+  margin-bottom: 20px;
+
+  color: #737b8c;
+  font-size: 14px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.card-actions button {
+  flex: 1;
+
+  padding: 9px 12px;
+
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: 0.2s ease;
+}
+
+.edit-btn {
+  border: 1px solid #dce0e9;
+  background: #fff;
+  color: #475065;
+}
+
+.edit-btn:hover {
+  background: #f5f6f9;
+}
+
+.delete-btn {
+  border: 1px solid #ffd5d5;
+  background: #fff;
+  color: #dc3545;
+}
+
+.delete-btn:hover {
+  background: #fff1f1;
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state {
+  padding: 70px 20px;
+
+  text-align: center;
+
+  background: #fff;
+  border: 1px dashed #d9deea;
+  border-radius: 15px;
+}
+
+.empty-icon {
+  margin-bottom: 10px;
+  font-size: 40px;
+}
+
+.empty-state h3 {
+  margin-bottom: 6px;
+  font-size: 21px;
+}
+
+.empty-state p {
+  color: #7a8292;
+}
+
+/* =========================================================
+   CATEGORIES
+   ========================================================= */
+
+.categories-section {
+  background: #ffffff;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.category-card {
+  min-height: 145px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border: 1px solid #e5e8ef;
+  border-radius: 15px;
+
+  background: #fafbfe;
+  color: #293143;
+
+  transition: 0.25s ease;
+}
+
+.category-card span {
+  font-size: 34px;
+}
+
+.category-card strong {
+  font-size: 14px;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  border-color: #cfd3ff;
+  background: #f5f6ff;
+  color: #4f46e5;
+}
+
+/* =========================================================
+   FAVORITES
+   ========================================================= */
+
+.favorites-section {
+  background: #f7f9fc;
+}
+
+.favorite-empty {
+  grid-column: 1 / -1;
+
+  padding: 55px 20px;
+
+  text-align: center;
+
+  background: #ffffff;
+  border: 1px dashed #dce1eb;
+  border-radius: 15px;
+
+  color: #7c8494;
+}
+
+.favorite-empty span {
+  display: block;
+  margin-bottom: 10px;
+
+  font-size: 42px;
+}
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.about-section {
+  background: #ffffff;
+}
+
+.about-content {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+.about-content h2 {
+  margin-bottom: 15px;
+  font-size: 38px;
+}
+
+.about-content > p:last-child {
+  color: #737b8c;
+  font-size: 17px;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(5px);
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  position: relative;
+
+  width: 100%;
+  max-width: 570px;
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  padding: 32px;
+
+  background: #ffffff;
+  border-radius: 18px;
+
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+  margin-bottom: 25px;
+  font-size: 27px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  width: 36px;
+  height: 36px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f1f3f7;
+  color: #5c6474;
+
+  font-size: 16px;
+}
+
+.modal-close:hover {
+  background: #e7eaf0;
+}
+
+#formulaForm {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+#formulaForm label {
+  margin-top: 8px;
+
+  color: #3b4353;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#formulaForm input,
+#formulaForm select,
+#formulaForm textarea {
+  width: 100%;
+
+  padding: 12px 13px;
+
+  border: 1px solid #dce1eb;
+  border-radius: 9px;
+
+  background: #fafbfc;
+  color: #172033;
+
+  outline: none;
+
+  resize: vertical;
+  transition: 0.2s ease;
+}
+
+#formulaForm input:focus,
+#formulaForm select:focus,
+#formulaForm textarea:focus {
+  border-color: #4f46e5;
+  background: #fff;
+
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
+}
+
+#formulaForm button[type="submit"] {
+  margin-top: 16px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+  padding: 42px 6%;
+
+  background: #151a29;
+  color: #ffffff;
+
+  text-align: center;
+}
+
+.footer-logo {
+  margin-bottom: 8px;
+
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.footer p {
+  color: #aeb5c5;
+}
+
+.footer .copyright {
+  margin-top: 18px;
+  font-size: 12px;
+}
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+  .header {
+    padding: 0 4%;
+  }
+
+  .navbar {
+    gap: 16px;
+  }
+
+  .formula-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .header {
+    min-height: auto;
+    padding: 15px 5%;
+
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .navbar {
+    order: 3;
+    width: 100%;
+
+    justify-content: center;
+    overflow-x: auto;
+
+    padding-bottom: 4px;
+  }
+
+  .navbar a {
+    white-space: nowrap;
+    font-size: 13px;
+  }
+
+  .header-actions {
+    margin-left: auto;
+  }
+
+  .header-actions .btn {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .hero {
+    min-height: 500px;
+    padding: 70px 5%;
+  }
+
+  .hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .hero-description {
+    font-size: 16px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-section {
+    padding: 20px 5%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    max-width: none;
+  }
+
+  #categoryFilter {
+    width: 100%;
+  }
+
+  .formula-section,
+  .categories-section,
+  .favorites-section,
+  .about-section {
+    padding: 55px 5%;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  .section-heading h2 {
+    font-size: 29px;
+  }
+
+  .formula-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .category-card {
+    min-height: 125px;
+  }
+
+  .modal-content {
+    padding: 25px 20px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .header-actions {
+    gap: 5px;
+  }
+
+  .header-actions .btn {
+    padding: 8px 9px;
+  }
+
+  .navbar {
+    gap: 13px;
+    justify-content: flex-start;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .formula-card {
+    padding: 18px;
+  }
+
+  .formula-box {
+    font-size: 16px;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(79, 70, 229, 0.25);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   HIDDEN UTILITY
+   ========================================================= */
+
+.hidden {
+  display: none !important;
+}/* =========================================================
+   FORMULA KIT - PART 3
+   script.js
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* =======================================================
+     ELEMENTS
+     ======================================================= */
+
+  const formulaContainer = document.getElementById("formulaContainer");
+  const favoriteContainer = document.getElementById("favoriteContainer");
+
+  const searchInput = document.getElementById("searchInput");
+  const clearSearch = document.getElementById("clearSearch");
+  const categoryFilter = document.getElementById("categoryFilter");
+
+  const addFormulaBtn = document.getElementById("addFormulaBtn");
+  const startBtn = document.getElementById("startBtn");
+  const viewFormulaBtn = document.getElementById("viewFormulaBtn");
+
+  const formulaModal = document.getElementById("formulaModal");
+  const closeModal = document.getElementById("closeModal");
+  const formulaForm = document.getElementById("formulaForm");
+
+  const formulaTitle = document.getElementById("formulaTitle");
+  const formulaCategory = document.getElementById("formulaCategory");
+  const formulaText = document.getElementById("formulaText");
+  const formulaDescription = document.getElementById("formulaDescription");
+
+  const loginBtn = document.getElementById("loginBtn");
+  const signupBtn = document.getElementById("signupBtn");
+
+  const emptyState = document.getElementById("emptyState");
+
+  /* =======================================================
+     STORAGE KEY
+     ======================================================= */
+
+  const STORAGE_KEY = "formulaKitFormulas";
+
+  /* =======================================================
+     DEFAULT FORMULAS
+     ======================================================= */
+
+  const defaultFormulas = [
+    {
+      id: generateId(),
+      title: "Quadratic Formula",
+      category: "math",
+      formula: "x = (-b ± √(b² - 4ac)) / 2a",
+      description: "Used to find the roots of a quadratic equation.",
+      favorite: false
+    },
+    {
+      id: generateId(),
+      title: "Newton's Second Law",
+      category: "physics",
+      formula: "F = m × a",
+      description: "Force is equal to mass multiplied by acceleration.",
+      favorite: false
+    },
+    {
+      id: generateId(),
+      title: "Area of Circle",
+      category: "math",
+      formula: "A = πr²",
+      description: "Formula for calculating the area of a circle.",
+      favorite: false
+    }
+  ];
+
+  /* =======================================================
+     APPLICATION STATE
+     ======================================================= */
+
+  let formulas = loadFormulas();
+  let editingId = null;
+
+  /* =======================================================
+     INITIALIZE
+     ======================================================= */
+
+  renderFormulas();
+  renderFavorites();
+
+  /* =======================================================
+     LOAD DATA
+     ======================================================= */
+
+  function loadFormulas() {
+
+    try {
+
+      const saved = localStorage.getItem(STORAGE_KEY);
+
+      if (saved) {
+        const parsed = JSON.parse(saved);
+
+        if (Array.isArray(parsed)) {
+          return parsed;
+        }
+      }
+
+    } catch (error) {
+      console.error("Could not load formulas:", error);
+    }
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(defaultFormulas)
+    );
+
+    return [...defaultFormulas];
+  }
+
+  /* =======================================================
+     SAVE DATA
+     ======================================================= */
+
+  function saveFormulas() {
+
+    try {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(formulas)
+      );
+
+    } catch (error) {
+      console.error("Could not save formulas:", error);
+    }
+  }
+
+  /* =======================================================
+     GENERATE UNIQUE ID
+     ======================================================= */
+
+  function generateId() {
+
+    return Date.now().toString() +
+      Math.random().toString(36).substring(2, 9);
+  }
+
+  /* =======================================================
+     CATEGORY NAME
+     ======================================================= */
+
+  function getCategoryName(category) {
+
+    const categories = {
+      math: "Mathematics",
+      physics: "Physics",
+      chemistry: "Chemistry",
+      biology: "Biology",
+      computer: "Computer",
+      other: "Other"
+    };
+
+    return categories[category] || "Other";
+  }
+
+  /* =======================================================
+     ESCAPE HTML
+     ======================================================= */
+
+  function escapeHTML(value) {
+
+    if (value === undefined || value === null) {
+      return "";
+    }
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  /* =======================================================
+     RENDER FORMULAS
+     ======================================================= */
+
+  function renderFormulas() {
+
+    const searchTerm =
+      searchInput.value.trim().toLowerCase();
+
+    const selectedCategory =
+      categoryFilter.value;
+
+    let filtered = formulas.filter(formula => {
+
+      const matchesSearch =
+        formula.title.toLowerCase().includes(searchTerm) ||
+        formula.formula.toLowerCase().includes(searchTerm) ||
+        formula.description.toLowerCase().includes(searchTerm) ||
+        getCategoryName(formula.category)
+          .toLowerCase()
+          .includes(searchTerm);
+
+      const matchesCategory =
+        selectedCategory === "all" ||
+        formula.category === selectedCategory;
+
+      return matchesSearch && matchesCategory;
+    });
+
+    formulaContainer.innerHTML = "";
+
+    if (filtered.length === 0) {
+
+      emptyState.style.display = "block";
+
+      return;
+    }
+
+    emptyState.style.display = "none";
+
+    filtered.forEach(formula => {
+
+      const card =
+        document.createElement("article");
+
+      card.className = "formula-card";
+
+      card.dataset.id = formula.id;
+      card.dataset.category = formula.category;
+
+      card.innerHTML = `
+        <div class="formula-card-top">
+
+          <span class="category-badge">
+            ${escapeHTML(getCategoryName(formula.category))}
+          </span>
+
+          <button
+            class="favorite-btn ${formula.favorite ? "active" : ""}"
+            data-action="favorite"
+            title="${formula.favorite
+              ? "Remove from favorites"
+              : "Add to favorites"}">
+
+            ${formula.favorite ? "♥" : "♡"}
+
+          </button>
+
+        </div>
+
+        <h3>
+          ${escapeHTML(formula.title)}
+        </h3>
+
+        <div class="formula-box">
+          ${escapeHTML(formula.formula)}
+        </div>
+
+        <p class="formula-description">
+          ${escapeHTML(formula.description)}
+        </p>
+
+        <div class="card-actions">
+
+          <button
+            class="edit-btn"
+            data-action="edit">
+            Edit
+          </button>
+
+          <button
+            class="delete-btn"
+            data-action="delete">
+            Delete
+          </button>
+
+        </div>
+      `;
+
+      formulaContainer.appendChild(card);
+    });
+  }
+
+  /* =======================================================
+     RENDER FAVORITES
+     ======================================================= */
+
+  function renderFavorites() {
+
+    const favorites =
+      formulas.filter(formula => formula.favorite);
+
+    favoriteContainer.innerHTML = "";
+
+    if (favorites.length === 0) {
+
+      favoriteContainer.innerHTML = `
+        <div class="favorite-empty">
+
+          <span>♡</span>
+
+          <p>
+            Your favorite formulas will appear here.
+          </p>
+
+        </div>
+      `;
+
+      return;
+    }
+
+    favorites.forEach(formula => {
+
+      const card =
+        document.createElement("article");
+
+      card.className = "formula-card";
+
+      card.dataset.id = formula.id;
+      card.dataset.category = formula.category;
+
+      card.innerHTML = `
+        <div class="formula-card-top">
+
+          <span class="category-badge">
+            ${escapeHTML(getCategoryName(formula.category))}
+          </span>
+
+          <button
+            class="favorite-btn active"
+            data-action="favorite"
+            title="Remove from favorites">
+
+            ♥
+
+          </button>
+
+        </div>
+
+        <h3>
+          ${escapeHTML(formula.title)}
+        </h3>
+
+        <div class="formula-box">
+          ${escapeHTML(formula.formula)}
+        </div>
+
+        <p class="formula-description">
+          ${escapeHTML(formula.description)}
+        </p>
+
+        <div class="card-actions">
+
+          <button
+            class="edit-btn"
+            data-action="edit">
+            Edit
+          </button>
+
+          <button
+            class="delete-btn"
+            data-action="delete">
+            Delete
+          </button>
+
+        </div>
+      `;
+
+      favoriteContainer.appendChild(card);
+    });
+  }
+
+  /* =======================================================
+     OPEN MODAL
+     ======================================================= */
+
+  function openModal(formula = null) {
+
+    formulaModal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+    if (formula) {
+
+      editingId = formula.id;
+
+      formulaModal.querySelector("h2").textContent =
+        "Edit Formula";
+
+      formulaTitle.value =
+        formula.title;
+
+      formulaCategory.value =
+        formula.category;
+
+      formulaText.value =
+        formula.formula;
+
+      formulaDescription.value =
+        formula.description;
+
+      formulaForm.querySelector(
+        'button[type="submit"]'
+      ).textContent = "Update Formula";
+
+    } else {
+
+      editingId = null;
+
+      formulaModal.querySelector("h2").textContent =
+        "Add New Formula";
+
+      formulaForm.reset();
+
+      formulaForm.querySelector(
+        'button[type="submit"]'
+      ).textContent = "Save Formula";
+    }
+
+    setTimeout(() => {
+      formulaTitle.focus();
+    }, 100);
+  }
+
+  /* =======================================================
+     CLOSE MODAL
+     ======================================================= */
+
+  function closeFormulaModal() {
+
+    formulaModal.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+    editingId = null;
+
+    formulaForm.reset();
+
+    formulaModal.querySelector("h2").textContent =
+      "Add New Formula";
+
+    formulaForm.querySelector(
+      'button[type="submit"]'
+    ).textContent = "Save Formula";
+  }
+
+  /* =======================================================
+     ADD FORMULA BUTTON
+     ======================================================= */
+
+  addFormulaBtn.addEventListener("click", () => {
+
+    openModal();
+
+  });
+
+  /* =======================================================
+     START BUTTON
+     ======================================================= */
+
+  startBtn.addEventListener("click", () => {
+
+    document
+      .getElementById("formulas")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+    setTimeout(() => {
+      openModal();
+    }, 500);
+
+  });
+
+  /* =======================================================
+     VIEW FORMULAS BUTTON
+     ======================================================= */
+
+  viewFormulaBtn.addEventListener("click", () => {
+
+    document
+      .getElementById("formulas")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+  });
+
+  /* =======================================================
+     CLOSE MODAL
+     ======================================================= */
+
+  closeModal.addEventListener("click", () => {
+
+    closeFormulaModal();
+
+  });
+
+  /* =======================================================
+     CLOSE MODAL WHEN CLICKING OUTSIDE
+     ======================================================= */
+
+  formulaModal.addEventListener("click", event => {
+
+    if (event.target === formulaModal) {
+
+      closeFormulaModal();
+
+    }
+
+  });
+
+  /* =======================================================
+     ESCAPE KEY
+     ======================================================= */
+
+  document.addEventListener("keydown", event => {
+
+    if (
+      event.key === "Escape" &&
+      formulaModal.classList.contains("active")
+    ) {
+
+      closeFormulaModal();
+
+    }
+
+  });
+
+  /* =======================================================
+     SAVE / UPDATE FORMULA
+     ======================================================= */
+
+  formulaForm.addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    const title =
+      formulaTitle.value.trim();
+
+    const category =
+      formulaCategory.value;
+
+    const formula =
+      formulaText.value.trim();
+
+    const description =
+      formulaDescription.value.trim();
+
+    if (!title || !category || !formula) {
+
+      alert(
+        "Please fill in Formula Name, Category and Formula."
+      );
+
+      return;
+    }
+
+    if (editingId) {
+
+      const index =
+        formulas.findIndex(
+          item => item.id === editingId
+        );
+
+      if (index !== -1) {
+
+        formulas[index] = {
+          ...formulas[index],
+
+          title,
+          category,
+          formula,
+
+          description:
+            description ||
+            "No description provided."
+        };
+      }
+
+    } else {
+
+      formulas.unshift({
+
+        id: generateId(),
+
+        title,
+        category,
+        formula,
+
+        description:
+          description ||
+          "No description provided.",
+
+        favorite: false
+
+      });
+    }
+
+    saveFormulas();
+
+    renderFormulas();
+
+    renderFavorites();
+
+    closeFormulaModal();
+
+  });
+
+  /* =======================================================
+     FORMULA CARD ACTIONS
+     ======================================================= */
+
+  function handleCardAction(event) {
+
+    const button =
+      event.target.closest("button[data-action]");
+
+    if (!button) {
+      return;
+    }
+
+    const card =
+      button.closest(".formula-card");
+
+    if (!card) {
+      return;
+    }
+
+    const id =
+      card.dataset.id;
+
+    const action =
+      button.dataset.action;
+
+    const formula =
+      formulas.find(item => item.id === id);
+
+    if (!formula) {
+      return;
+    }
+
+    /* -----------------------------------------------------
+       FAVORITE
+       ----------------------------------------------------- */
+
+    if (action === "favorite") {
+
+      formula.favorite =
+        !formula.favorite;
+
+      saveFormulas();
+
+      renderFormulas();
+
+      renderFavorites();
+
+      return;
+    }
+
+    /* -----------------------------------------------------
+       EDIT
+       ----------------------------------------------------- */
+
+    if (action === "edit") {
+
+      openModal(formula);
+
+      return;
+    }
+
+    /* -----------------------------------------------------
+       DELETE
+       ----------------------------------------------------- */
+
+    if (action === "delete") {
+
+      const confirmed =
+        confirm(
+          `Are you sure you want to delete "${formula.title}"?`
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      formulas =
+        formulas.filter(
+          item => item.id !== id
+        );
+
+      saveFormulas();
+
+      renderFormulas();
+
+      renderFavorites();
+    }
+  }
+
+  /* =======================================================
+     EVENT DELEGATION
+     ======================================================= */
+
+  formulaContainer.addEventListener(
+    "click",
+    handleCardAction
+  );
+
+  favoriteContainer.addEventListener(
+    "click",
+    handleCardAction
+  );
+
+  /* =======================================================
+     SEARCH
+     ======================================================= */
+
+  searchInput.addEventListener("input", () => {
+
+    renderFormulas();
+
+    if (searchInput.value.trim()) {
+
+      clearSearch.style.display =
+        "block";
+
+    } else {
+
+      clearSearch.style.display =
+        "none";
+    }
+
+  });
+
+  /* =======================================================
+     CLEAR SEARCH
+     ======================================================= */
+
+  clearSearch.addEventListener("click", () => {
+
+    searchInput.value = "";
+
+    clearSearch.style.display =
+      "none";
+
+    renderFormulas();
+
+    searchInput.focus();
+
+  });
+
+  /* =======================================================
+     CATEGORY FILTER
+     ======================================================= */
+
+  categoryFilter.addEventListener("change", () => {
+
+    renderFormulas();
+
+  });
+
+  /* =======================================================
+     CATEGORY CARDS
+     ======================================================= */
+
+  const categoryCards =
+    document.querySelectorAll(".category-card");
+
+  categoryCards.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+      const category =
+        card.dataset.category;
+
+      categoryFilter.value =
+        category;
+
+      renderFormulas();
+
+      document
+        .getElementById("formulas")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    });
+
+  });
+
+  /* =======================================================
+     LOGIN BUTTON
+     ======================================================= */
+
+  loginBtn.addEventListener("click", () => {
+
+    alert(
+      "Login system will be connected in a future version."
+    );
+
+  });
+
+  /* =======================================================
+     SIGN UP BUTTON
+     ======================================================= */
+
+  signupBtn.addEventListener("click", () => {
+
+    alert(
+      "Sign Up system will be connected in a future version."
+    );
+
+  });
+
+  /* =======================================================
+     NAVIGATION ACTIVE EFFECT
+     ======================================================= */
+
+  const navLinks =
+    document.querySelectorAll(".navbar a");
+
+  navLinks.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+      navLinks.forEach(item => {
+        item.classList.remove("active");
+      });
+
+      link.classList.add("active");
+
+    });
+
+  });
+
+  /* =======================================================
+     WINDOW STORAGE SYNC
+     ======================================================= */
+
+  window.addEventListener("storage", event => {
+
+    if (event.key === STORAGE_KEY) {
+
+      formulas = loadFormulas();
+
+      renderFormulas();
+
+      renderFavorites();
+    }
+
+  });
+
+});
